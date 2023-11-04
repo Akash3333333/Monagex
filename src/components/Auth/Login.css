@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,20 +7,19 @@
     background-size: cover;
   }
   
-  .register-form{
+  .login-form{
     background-color: #2c2d31;
     padding: 20px;
-    width: 30rem;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(250, 5, 5, 0.2);
+    box-shadow: 0 0 10px rgba(250, 5, 5, 0.2); 
     text-align: center;
   }
-   .register-form .header{
+   .login-form .header{
     text-align: center;
     color: #fff;
     width: 100%;
   }
-  
+ 
   input {
     width: 90%;
     padding: 10px;
@@ -41,4 +40,4 @@
     font-weight: 700;
     border-radius: 4px;
     cursor: pointer;
-  }
+}

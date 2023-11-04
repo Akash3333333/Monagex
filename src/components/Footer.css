@@ -1,0 +1,51 @@
+.sundar-footer {
+    background-color: #1a1a1a; /* Dark background color */
+    color: #fff; /* Text color */
+    padding: 20px 0; /* Padding top and bottom */
+    text-align: center; /* Center-align content */
+    font-family: Arial, sans-serif; /* Choose your preferred font */
+  
+    /* Adding a shadow effect */
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footer-content p {
+    margin: 0;
+    font-size: 1.2em; /* Adjust font size as needed */
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  ul li:last-child {
+    margin-right: 0; /* Remove margin from the last list item */
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s; /* Smooth color transition on hover */
+    font-weight: 600; /* Bold font for links */
+  }
+  
+  a:hover {
+    color: #ff9900; /* Change link color on hover */
+  }
+  
