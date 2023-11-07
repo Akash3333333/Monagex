@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Header() {
-    const [islogin,changeIsLogin]=useState(true);
+function UserNav() {
+    // const [islogin,changeIsLogin]=useState(true);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
@@ -16,11 +16,12 @@ function Header() {
                             <Link className="nav-link active" to="/">Home</Link>
                         </li>
                     </ul>
-                    <Link to="/signup" className="btn btn-outline-success">{islogin?"Logout":"Login/SignUp"}</Link>
+                    {/* <Link to="/signup" className="btn btn-outline-success">{islogin?"Logout":"Login/SignUp"}</Link> */}
+                    <Link to="/transaction" className="btn btn-outline-success">Record transaction</Link>
                 </div>
             </div>
         </nav>
     );
 }
 
-export default Header;
+export default UserNav;
