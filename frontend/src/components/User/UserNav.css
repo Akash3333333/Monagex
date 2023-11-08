@@ -1,0 +1,96 @@
+.user-nav {
+    background-color: rgb(41, 41, 41);
+    margin: 0;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+  }
+  
+  .user-nav-container {
+    max-width: 1200px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 10px;
+  }
+  
+  .user-nav-right {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .brand {
+    -ms-flex-align: start;
+    text-decoration: none;
+    font-size: 2rem;
+    color: #f3ecec;
+  }
+  
+  .custom-dropdown {
+    position: relative;
+  }
+  
+  .dropdown-toggle {
+    background-color: transparent;
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 10px; /* Adjust the margin to create space between the brand and the button */
+    padding: 0;
+    font-size: 1.6rem;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333;
+    border: 1px solid #777;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    z-index: 1;
+  }
+  
+  .dropdown-menu li {
+    display: flex;
+  }
+  
+  .dropdown-menu li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .dropdown-menu li a:hover {
+    background-color: #28a745;
+  }
+  
+  /* Media query for screens with a maximum width of 768px */
+  @media (max-width: 768px) {
+    .user-nav-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .user-nav-right {
+      margin-top: 20px;
+    }
+  
+    .dropdown-toggle {
+      margin: 0; /* Reset the margin on smaller screens */
+    }
+  }
+  
