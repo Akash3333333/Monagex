@@ -1,7 +1,12 @@
 .feed{
-    flex:5;
+    flex:10.2;
+    display: flex;
+    flex-direction: column;
+    /* background-color: red; */
 }
 
 .feedWrapper{
-    padding: 20px;
+    /* padding: 20px; */
+    margin: 0;
+    /* height: 99vh; */
 }

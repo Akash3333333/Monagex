@@ -1,12 +1,14 @@
 .sundar-footer {
     background-color: #1a1a1a; /* Dark background color */
     color: #fff; /* Text color */
-    padding: 20px 0; /* Padding top and bottom */
+    padding: 10px 0; /* Padding top and bottom */
     text-align: center; /* Center-align content */
     font-family: Arial, sans-serif; /* Choose your preferred font */
-  
+    /* position:relative; */
     /* Adding a shadow effect */
+    display: flex;
     box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
   }
   
   .footer-content {
@@ -15,15 +17,14 @@
     justify-content: space-between;
     align-items: center;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin: auto;
+    padding: 0.1rem;
   }
   
   .footer-content p {
     margin: 0;
-    font-size: 1.2em; /* Adjust font size as needed */
+    font-size: 1.8rem; 
   }
-  
   ul {
     list-style: none;
     padding: 0;

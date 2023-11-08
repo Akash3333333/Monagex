@@ -1,65 +1,41 @@
 import "./Sidebar.css";
-import {
-  RssFeed,
-  Chat,
-  PlayCircleFilledOutlined,
-  Group,
-  Bookmark,
-  HelpOutline,
-  WorkOutline,
-  Event,
-  School,
-} from "@material-ui/icons";
-// import { Users } from "../../dummyData";
 import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout"; // Import the LogoutIcon
+import ViewListIcon from '@mui/icons-material/ViewList';
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 
 export default function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
-          <Link to={{ pathname: "/" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} > 
+          <Link to="/" style={{ color: "white", textDecoration: "none" }}>
             <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span className="sidebarListItemText">Feed</span>
-          </li> </Link>
-          <Link to={{ pathname: "/" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} >
-             <li className="sidebarListItem">
-            <Chat className="sidebarIcon" />
-            <span className="sidebarListItemText">Chats</span>
-          </li></Link>
-          <Link to={{ pathname: "https://youtube.com" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} >
-           <li className="sidebarListItem">
-           <PlayCircleFilledOutlined  className="sidebarIcon"/> 
-            <span className="sidebarListItemText">Videos</span>  
-          </li></Link>
-         <Link to={{ pathname: "/" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} > <li className="sidebarListItem">
-            <Group className="sidebarIcon" />
-            <span className="sidebarListItemText">Groups</span>
-          </li></Link>
-         {/* <Link to={{ pathname: "https://chrome://bookmarks" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} > <li className="sidebarListItem">
-            <Bookmark className="sidebarIcon" />
-            <span className="sidebarListItemText">Bookmarks</span>
-          </li></Link> */}
-         <Link to={{ pathname: "https://stackoverflow.com" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red' }} > <li className="sidebarListItem">
-            <HelpOutline className="sidebarIcon" />
-            <span className="sidebarListItemText">Questions</span>
-          </li></Link>
-         <Link to={{ pathname: "https://indeed.com" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} > <li className="sidebarListItem">
-            <WorkOutline className="sidebarIcon" />
-            <span className="sidebarListItemText">Jobs</span>
-          </li></Link>
-         <Link to={{ pathname: "https://youtube.com" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} > <li className="sidebarListItem">
-            <Event className="sidebarIcon" />
-            <span className="sidebarListItemText">Events</span>
-          </li></Link>
-         <Link to={{ pathname: "https://udemy.com" }} target="_blank" style={{ color:"white" ,textDecoration: 'none', hover:'red'}} > <li className="sidebarListItem">
-            <School className="sidebarIcon" />
-            <span className="sidebarListItemText">Courses</span>
-          </li></Link>
+              <AccountCircleIcon className="sidebarIcon" />
+              <span className="sidebarListItemText">Dashboard</span>
+            </li>
+          </Link>
+          <Link to="/income" style={{ color: "white", textDecoration: "none" }}>
+            <li className="sidebarListItem">
+              <LibraryBooksOutlinedIcon className="sidebarIcon" />
+              <span className="sidebarListItemText">Record Transaction</span>
+            </li>
+          </Link>
+          <Link to="/view" style={{ color: "white", textDecoration: "none" }}>
+            <li className="sidebarListItem">
+              <ViewListIcon className="sidebarIcon" />
+              <span className="sidebarListItemText">View Transaction</span>
+            </li>
+          </Link>
         </ul>
-        <button className="sidebarButton">Show More</button>
-        <hr className="sidebarHr" />
+      </div>
+      <hr className="sidebarHr"/>
+      <div className="sidebarLogout">
+        <Link to="/logout" style={{ color: "white", textDecoration: "none" }}>
+          <LogoutIcon className="sidebarIcon" />
+          <span className="sidebarLogoutText">Logout</span>
+        </Link>
       </div>
     </div>
   );

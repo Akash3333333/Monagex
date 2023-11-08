@@ -1,14 +1,14 @@
-.income-container {
+.view-container {
     display: flex;
-    flex-direction: column;
-    height: 100vh; /* Ensure the container takes full viewport height */
+    flex-direction: column; /* Set to row to make sidebar cover the left side */
+    height: 100vh;
+    /* width: 100%; */
 }
 
-.income-content {
+.view-content {
     display: flex;
-    flex: 0.4;
-    background-image: url('../../../public/images/income.jpg');
-    background-size: cover;
+    flex: 0.4; /* Expand the main content to fill available space */
+    background: #fff;
 }
 
 /* Define styling for IncomeForm as needed */
@@ -26,11 +26,9 @@
 
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
-    .income-container {
+    .view-container {
         flex-direction: column; /* Stack content in the container for smaller screens */
     }
-
-    .main-content {
-        flex: 1; /* Expand the main content to full width for smaller screens */
-    }
 }
+
+/* Add more media queries for different screen sizes if needed */

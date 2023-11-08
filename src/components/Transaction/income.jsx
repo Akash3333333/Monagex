@@ -1,18 +1,22 @@
 import React from "react";
-import './income.css';
+import UserNav from "../User/UserNav";
 import Sidebar from "../Sidebar";
-import Transac from "./Transac";
-import Content from "./content";
+import IncomeForm from "./IncomeForm";
+import Footer from "../Footer";
+import './income.css';
+import TransNav from "./TransNav";
 
 function Income() {
     return (
-        <>
-            <div className="a">
-                <Sidebar />
-                <Content />
+        <div className="income-container">
+                <TransNav/>
+            <div className="income-content">
+                <Sidebar  />
+                <IncomeForm />
             </div>
-        </>
-    )
-};
+            <Footer />
+        </div>
+    );
+}
 
 export default Income;

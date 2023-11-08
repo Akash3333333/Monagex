@@ -7,10 +7,10 @@ function UserProfile()
 {
     return(
         <>
-        <div className="a">
-        <Sidebar />
-        <Feed />
-        </div>
+          <div className="userProfileContainer">
+     HI
+      {/* <Feed /> */}
+    </div>
         </>
     )
 };

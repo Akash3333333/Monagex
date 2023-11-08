@@ -1,12 +1,20 @@
 import React from "react";
-import Header from "./header";
 import Footer from "./Footer";
+import UserNav from "./User/UserNav";
+import UserProfile from "./User/UserProfile";
+import Sidebar from "./Sidebar";
+import './home.css';
 
 function Home()
 {
     return(
         <>
-        <Header />
+        <UserNav />
+        {/* <UserProfile/> */}
+        <div className="home-container">
+          <Sidebar/>
+          <UserProfile/>
+        </div>
         <Footer />
         </>
     )

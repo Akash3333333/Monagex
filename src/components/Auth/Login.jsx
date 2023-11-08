@@ -78,7 +78,7 @@ function Login() {
         />
         {isCorrect?<p style={{color:"green"}}>Correct</p>:<p style={{color:"red"}}>InCorrect</p>}
         <button onClick={handleLogin}>Login</button>
-        <Link to="/register" className="register2">Go Back to Register</Link>
+        <Link to="/signup" className="register2">Go Back to Register</Link>
       </div>
     </div>
   );

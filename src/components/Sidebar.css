@@ -1,60 +1,115 @@
 .sidebar {
-    flex: 1;
-    height: calc(100vh - 50px);
-    overflow-y: scroll;
-    position: sticky;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color:white;
-    top: 50px;
+  flex: 0.25;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to right, #0f2027, rgb(0, 107, 153), #79bad5);
+  color: white;
+  padding: 20px;
+  /* position: fixed; */
+  margin: 0;
+  height: 100vh;
+  animation: flow 5s linear infinite; /* Add animation to the sidebar background */
+}
+
+/* Rest of your CSS styles... */
+
+@keyframes flow {
+  0% {
+    background-position: 100% 0;
   }
-  
-  ::-webkit-scrollbar {
-    width: 5px;
+  100% {
+    background-position: 0 100%;
   }
-  ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+}
+
+
+.sidebarWrapper {
+  padding: 20px;
+}
+
+.sidebarList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebarListItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sidebarListItemText {
+  display: flex;
+  font-size: 28px;
+  align-items: center;
+  /* margin-bottom: 30px; */
+}
+
+.sidebarIcon {
+  margin-right: 15px;
+}
+
+.sidebarButton {
+  width: 150px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.sidebarHr {
+  margin: 20px 0;
+}
+
+.sidebarFriendList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebarLogout {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: flex-end;
+  justify-content:space-around ;
+  flex-grow: 1;
+}
+
+.sidebarLogoutIcon {
+  margin-right: 10px;
+}
+
+.sidebarLogoutText {
+  margin-right: 20px;
+  font-size: 30px;
+}
+
+/* 
+.sidebarLogoutButton {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+  background-color: #ff0000; 
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+} */
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
+  .sidebar {
+    flex: 1; /* Expand the sidebar to full width */
   }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 179, 179);
-  }
-  
-  .sidebarWrapper {
-    padding: 20px;
-  }
-  
-  .sidebarList {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  
-  .sidebarListItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
+
   .sidebarIcon {
-    margin-right: 15px;
+    margin-right: 10px; /* Reduce icon margin for smaller screens */
   }
-  
+
   .sidebarButton {
-    width: 150px;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: 500;
+    width: 120px; /* Decrease button width for smaller screens */
   }
-  
-  .sidebarHr {
-    margin: 20px 0;
-  }
-  
-  .sidebarFriendList {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  
-  
-  
+}
+
+/* You can add more media queries for different screen sizes as needed */

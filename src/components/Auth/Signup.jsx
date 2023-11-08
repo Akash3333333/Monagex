@@ -89,6 +89,8 @@ function Register() {
   }
 
   return (
+
+    <div className="register">
     <div className="register-container">
       <div className="register-form">
         <h2 className='header'>Register</h2>
@@ -118,11 +120,10 @@ function Register() {
           onChange={CheckHandler}
         />
         {passwordMatched?<p style={{color:"green"}}>Password Matched</p>:<p style={{color:"red"}}>Not Yet Matched</p>}
-        <button onClick={handleRegister}>Register</button>
-        
-        {/* Make sure the Link is within the Router component */}
+        <button onClick={handleRegister} className="register-btn" >Register</button>
         <Link to="/login" className="register2">Log into Account</Link>
       </div>
+    </div>
     </div>
   );
 }
