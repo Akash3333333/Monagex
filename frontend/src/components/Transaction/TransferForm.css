@@ -1,0 +1,36 @@
+/* IncomeForm.css */
+
+.income-form {
+    max-width: 500px;
+    margin:auto;
+    background-color: #2c2d31;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .input-group {
+    margin-bottom: 8px;
+    color:#fff
+  }
+  
+  .form-control {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #45a049;
+  }
+  
