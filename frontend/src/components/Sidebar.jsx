@@ -4,6 +4,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout"; // Import the LogoutIcon
 import ViewListIcon from '@mui/icons-material/ViewList';
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ChatIcon from '@mui/icons-material/Chat';
+
 
 export default function Sidebar() {
   return (
@@ -26,6 +29,18 @@ export default function Sidebar() {
             <li className="sidebarListItem">
               <ViewListIcon className="sidebarIcon" />
               <span className="sidebarListItemText">View Transaction</span>
+            </li>
+          </Link>
+          <Link to="/group" style={{ color: "white", textDecoration: "none" }}>
+            <li className="sidebarListItem">
+              <PersonAddIcon className="sidebarIcon" />
+              <span className="sidebarListItemText">Group</span>
+            </li>
+          </Link>
+          <Link to="/chat" style={{ color: "white", textDecoration: "none" }}>
+            <li className="sidebarListItem">
+              <ChatIcon className="sidebarIcon" />
+              <span className="sidebarListItemText">Chat</span>
             </li>
           </Link>
         </ul>

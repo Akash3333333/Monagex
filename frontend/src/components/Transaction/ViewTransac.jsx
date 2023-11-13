@@ -7,13 +7,13 @@ import './ViewTransac.css';
 // import TransNav from "./TransNav";
 import Graph from "./Graph";
 
-function ViewTransac() {
+function ViewTransac({ userId }) {
     return (
         <div className="view-container">
                 <UserNav/>
             <div className="view-content">
                 <Sidebar  />
-                <Graph />
+                <Graph userId={ userId} />
             </div>
             <Footer />
         </div>

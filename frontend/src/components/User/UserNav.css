@@ -1,96 +1,88 @@
 .user-nav {
-    background-color: rgb(41, 41, 41);
-    margin: 0;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-  }
-  
+  background-color: rgb(41, 41, 41);
+  margin: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-nav-container {
+  max-width: 1200px;
+  margin: 0;
+  /* display: flex; */
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.user-nav-right {
+  display: flex;
+  align-items: flex-end;
+}
+
+.brand {
+  -ms-flex-align: start;
+  text-decoration: none;
+  font-size: 2rem;
+  color: #f3ecec;
+}
+
+.avatar-container {
+  position: relative;
+}
+
+.user-avatar {
+  background-color: #2196f3; /* Set the background color for the avatar */
+  color: #fff; /* Set the text color for the initials */
+  cursor: pointer;
+}
+
+.avatar-menu {
+  background-color: #fff; /* Background color for the dropdown menu */
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add a shadow for the menu */
+}
+
+.avatar-menu-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.avatar-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar-menu-list li {
+  margin-bottom: 10px;
+}
+
+.avatar-menu-list li a {
+  text-decoration: none;
+  color: #333; /* Text color for menu items */
+}
+
+.avatar-menu-list li a:hover {
+  color: #2196f3; /* Text color on hover */
+}
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
   .user-nav-container {
-    max-width: 1200px;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 10px;
-  }
-  
-  .user-nav-right {
-    display: flex;
-    align-items: flex-end;
-  }
-  
-  .brand {
-    -ms-flex-align: start;
-    text-decoration: none;
-    font-size: 2rem;
-    color: #f3ecec;
-  }
-  
-  .custom-dropdown {
-    position: relative;
-  }
-  
-  .dropdown-toggle {
-    background-color: transparent;
-    display: flex;
-    justify-content: space-around;
-    color: #fff;
-    border: none;
-    text-decoration: none;
-    cursor: pointer;
-    margin-left: 10px; /* Adjust the margin to create space between the brand and the button */
-    padding: 0;
-    font-size: 1.6rem;
-    outline: none;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu {
-    display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #333;
-    border: 1px solid #777;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-    padding: 0;
-    list-style: none;
-    margin: 0;
-    z-index: 1;
+    align-items: flex-start;
   }
-  
-  .dropdown-menu li {
-    display: flex;
+
+  .user-nav-right {
+    margin-top: 20px;
   }
-  
-  .dropdown-menu li a {
-    text-decoration: none;
-    color: #fff;
-    padding: 10px 20px;
+
+  .avatar-container {
+    margin-left: 10px; /* Adjust the margin for spacing */
   }
-  
-  .dropdown-menu li a:hover {
-    background-color: #28a745;
-  }
-  
-  /* Media query for screens with a maximum width of 768px */
-  @media (max-width: 768px) {
-    .user-nav-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .user-nav-right {
-      margin-top: 20px;
-    }
-  
-    .dropdown-toggle {
-      margin: 0; /* Reset the margin on smaller screens */
-    }
-  }
-  
+}

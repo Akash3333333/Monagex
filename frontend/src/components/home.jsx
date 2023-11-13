@@ -8,14 +8,14 @@ import './home.css';
 function Home()
 {
     return(
-        <>
-        <UserNav />
         <div className="home-container">
+        <UserNav />
+        <div className="home-content">
           <Sidebar/>
           <UserProfile/>
         </div>
         <Footer />
-        </>
+        </div>
     )
 };
 

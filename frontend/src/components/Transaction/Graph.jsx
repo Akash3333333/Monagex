@@ -1,3 +1,5 @@
+// Graph.js
+
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ArcElement, Chart } from 'chart.js';
@@ -27,63 +29,39 @@ const options = {
   },
 };
 
-const incomeData = {
-  labels: ['Red', 'Green', 'Yellow'],
-  datasets: [
-    {
-      label: 'Income',
-      data: [300, 50, 100],
-      backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(75, 192, 192)',
-        'rgb(255, 205, 86)',
-      ],
-      hoverOffset: 4,
-    },
-  ],
-};
-
-const expenseData = {
-  labels: ['Blue', 'Orange', 'Purple'],
-  datasets: [
-    {
-      label: 'Expense',
-      data: [200, 150, 50],
-      backgroundColor: [
-        'rgb(54, 162, 235)',
-        'rgb(255, 159, 64)',
-        'rgb(153, 102, 255)',
-      ],
-      hoverOffset: 4,
-    },
-  ],
-};
-
-const transferData = {
-  labels: ['Pink', 'Cyan', 'Brown'],
-  datasets: [
-    {
-      label: 'Transfer',
-      data: [100, 200, 300],
-      backgroundColor: [
-        'rgb(255, 192, 203)',
-        'rgb(0, 255, 255)',
-        'rgb(165, 42, 42)',
-      ],
-      hoverOffset: 4,
-    },
-  ],
+const fetchData = async (category) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/${category}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching ${category} data: ${error.message}`);
+    throw error;
+  }
 };
 
 const Graph = () => {
   const [loading, setLoading] = useState(true);
+  const [incomeData, setIncomeData] = useState([]);
+  const [expenseData, setExpenseData] = useState([]);
+  const [transferData, setTransferData] = useState([]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // Simulate a 2-second loading period
+    const fetchDataForCategory = async (category, setData) => {
+      try {
+        const data = await fetchData(category);
+        setData(data);
+      } catch (error) {
+        // Handle errors, e.g., show an error message to the user
+        console.error(`Error fetching ${category} data: ${error.message}`);
+      }
+    };
 
-    return () => clearTimeout(timeout);
+    Promise.all([
+      fetchDataForCategory('income', setIncomeData),
+      fetchDataForCategory('expense', setExpenseData),
+      fetchDataForCategory('transfer', setTransferData),
+    ]).then(() => setLoading(false));
   }, []);
 
   return (
@@ -91,31 +69,73 @@ const Graph = () => {
       <div className={`chart ${loading ? 'loading' : ''}`}>
         <h2 className="chart-title">Income</h2>
         {loading ? (
-          <div className="loading-spinner">
-            Loading...
-          </div>
+          <div className="loading-spinner">Loading...</div>
         ) : (
-          <Doughnut data={incomeData} options={options} />
+          <Doughnut
+            data={{
+              labels: incomeData.map((item) => item.category),
+              datasets: [
+                {
+                  data: incomeData.map((item) => item.amount),
+                  backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 205, 86)',
+                  ],
+                  hoverOffset: 4,
+                },
+              ],
+            }}
+            options={options}
+          />
         )}
       </div>
       <div className={`chart ${loading ? 'loading' : ''}`}>
         <h2 className="chart-title">Expense</h2>
         {loading ? (
-          <div className="loading-spinner">
-            Loading...
-          </div>
+          <div className="loading-spinner">Loading...</div>
         ) : (
-          <Doughnut data={expenseData} options={options} />
+          <Doughnut
+            data={{
+              labels: expenseData.map((item) => item.category),
+              datasets: [
+                {
+                  data: expenseData.map((item) => item.amount),
+                  backgroundColor: [
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 159, 64)',
+                    'rgb(153, 102, 255)',
+                  ],
+                  hoverOffset: 4,
+                },
+              ],
+            }}
+            options={options}
+          />
         )}
       </div>
       <div className={`chart ${loading ? 'loading' : ''}`}>
         <h2 className="chart-title">Transfer</h2>
         {loading ? (
-          <div className="loading-spinner">
-            Loading...
-          </div>
+          <div className="loading-spinner">Loading...</div>
         ) : (
-          <Doughnut data={transferData} options={options} />
+          <Doughnut
+            data={{
+              labels: transferData.map((item) => item.category),
+              datasets: [
+                {
+                  data: transferData.map((item) => item.amount),
+                  backgroundColor: [
+                    'rgb(255, 192, 203)',
+                    'rgb(0, 255, 255)',
+                    'rgb(165, 42, 42)',
+                  ],
+                  hoverOffset: 4,
+                },
+              ],
+            }}
+            options={options}
+          />
         )}
       </div>
     </div>

@@ -36,12 +36,12 @@
 .sidebarListItem {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 1.8rem;
 }
 
 .sidebarListItemText {
   display: flex;
-  font-size: 28px;
+  font-size: 1.8rem;
   align-items: center;
   /* margin-bottom: 30px; */
 }

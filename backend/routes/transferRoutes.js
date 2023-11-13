@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
 // Retrieve all transfer records
 router.get('/', async (req, res) => {
   try {
-    const transferRecords = await Transfer.find();
+    const userId = req.query.userId;
+    const transferRecords = await Transfer.find({ user: userId });
     res.status(200).json(transferRecords);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve transfer data' });

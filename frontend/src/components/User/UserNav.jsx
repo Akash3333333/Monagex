@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './UserNav.css';
+import Avatar from '@mui/material/Avatar';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
 
 function UserNav() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const openAvatarMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closeAvatarMenu = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -17,23 +24,39 @@ function UserNav() {
         </Link>
       </div>
       <div className="user-nav-right">
-        <div className="custom-dropdown">
-          {isDropdownOpen && (
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/income">Income</Link>
-              </li>
-              <li>
-                <Link to="/expense">Expense</Link>
-              </li>
-              <li>
-                <Link to="/transfer">Transfer</Link>
-              </li>
-            </ul>
-          )}
-          <button className="dropdown-toggle" onClick={toggleDropdown}>
-            Record Transaction
-          </button>
+        <div className="avatar-container">
+          <Avatar onClick={openAvatarMenu} className="user-avatar">
+            {/* You can display the user's initials or profile picture here */}
+          </Avatar>
+          <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={closeAvatarMenu}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <div className="avatar-menu">
+              <Typography className="avatar-menu-title"></Typography>
+              <ul className="avatar-menu-list">
+                <li>
+                  <Link to="/profile" onClick={closeAvatarMenu}>
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/logout" onClick={closeAvatarMenu}>
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Popover>
         </div>
       </div>
     </div>

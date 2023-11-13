@@ -1,87 +1,79 @@
 import React, { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+// import { jwtDecode } from 'jwt-decode';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isCorrect,changeIsCorrest]=useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const navigate = useNavigate();
+  const token = useParams();
 
-  const handleLogin = () => 
-  {
-    // Add your login logic here
-  };
-
-  function managePassword(e)
-  {
-      setPassword((x)=>{
-        x=e.target.value
-        return x;
+  const handleLogin = () => {
+    axios
+      .post('http://localhost:5000/auth/login', {
+        email,
+        password,
       })
-
-      const x=e.target.value;
-
-      if(x.length<7 || x.length >15)
-      {
-        changeIsCorrest(false);
-      }
-      else if(true)
-      {
-        let a=false,b=false,c=false,d=false;
-
-        for(let i=0;i<x.length;i++)
-        {
-          if(x[i]>='a'&&x[i]<=['z'])
-          {
-            a=true;
-          }
-          else if(x[i]>='A'&&x[i]<='Z')
-          {
-            b=true;
-          }
-          else if(x[i]>='0'&&x[i]<='9')
-          {
-            d=true;
-          }
-          else
-          {
-            c=true;
-          }
-        }
-
-        if(a&&b&&c&&d)
-        {
-          changeIsCorrest(true);
-        }
-        else
-        {
-          changeIsCorrest(false);
-        }
-      }
-  }
+      .then((response) => {
+        const token = response.data.token;
+        // Store the JWT token in local storage or session storage
+        localStorage.setItem('jwt', token);
+       
+        toast.success('Login successful!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+          className: 'toast-message',
+        });
+        navigate('/');
+      })
+      .catch((error) => {
+        toast.error('Invalid credentials!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+        // console.error(error);
+      });
+  };
 
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2 className='header'>Sign In</h2>
+        <h2 className="header">Sign In</h2>
         <input
           type="text"
           placeholder="Email"
           value={email}
-          onChange={(e) => {setEmail(e.target.value)}}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={managePassword}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        {isCorrect?<p style={{color:"green"}}>Correct</p>:<p style={{color:"red"}}>InCorrect</p>}
         <button onClick={handleLogin}>Login</button>
-        <Link to="/signup" className="register2">Go Back to Register</Link>
+        <div className="register2">
+        <Link to="/signup">
+          Go Back to Register
+        </Link>
+        </div>
+        <div className="forgetpassword">
+        <Link to="/forget-password" className="forgot-password-link">
+          Forgot Password?
+        </Link>
+        </div>
+
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Login;

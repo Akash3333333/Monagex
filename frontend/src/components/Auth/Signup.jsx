@@ -1,131 +1,144 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Signup.css';
+import { toast } from 'react-toastify';
 
-function Register() {
+function Signup() {
   const [username, setUsername] = useState('');
   const [cpassword, setCPassword] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isCorrect,changeIsCorrest]=useState(false);
-  const [passwordMatched,changePasswordMatched]=useState(false);
+  const [isCorrect, changeIsCorrect] = useState(false);
+  const [passwordMatched, changePasswordMatched] = useState(false);
+  const navigate = useNavigate();
 
-  const handleRegister = () => 
-  {
-    // Add your Register logic here
-  }
 
-  function PassHandler(e)
-  {
-    setPassword((x)=>{
-      x=e.target.value
-      return x;
-    })
+  const handleSignup = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const user = {
+        username: username,
+        email: email,
+        password: password,
+        cpassword: cpassword,
+      };
+  
+      const response = await axios.post('http://localhost:5000/auth/signup', user);
+  
+      if (response.status === 201) {
+        toast.success('Registration successful!',{
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+        const token = response.data.token;
 
-    const x=e.target.value;
-
-    if(x.length<7 || x.length >15)
-    {
-      changeIsCorrest(false);
-    }
-    else
-    {
-      let a=false,b=false,c=false,d=false;
-
-      for(let i=0;i<x.length;i++)
-      {
-        if(x[i]>='a'&&x[i]<='z')
-        {
-          a=true;
-        }
-        else if(x[i]>='A'&&x[i]<='Z')
-        {
-          b=true;
-        }
-        else if(x[i]>='0'&&x[i]<='9')
-        {
-          d=true;
-        }
-        else
-        {
-          c=true;
-        }
+  // Store the token securely (e.g., in a secure cookie or local storage)
+  // You might want to use a state management library for handling global state.
+  // For simplicity, storing in local storage here:
+  localStorage.setItem('jwtToken', token);
+        navigate('/login');
+        // Registration successful
+        console.log('Registration successful');
+      } else {
+        // Handle other status codes or errors
+        console.log('Registration failed:', response.data.message);
       }
-
-      if(a&&b&&c&&d)
-      {
-        changeIsCorrest(true);
-      }
-      else
-      {
-        changeIsCorrest(false);
-      }
+    } catch (error) {
+       toast.error('Error in registration!',{
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+      closeButton: false,
+      hideProgressBar: false,
+    });
+      console.error('Error during registration:', error);
     }
   };
+  
 
-  function CheckHandler(e)
-  {
-      setCPassword(()=>
-      {
-        const x=e.target.value
-        return x;
-      })
+  function PassHandler(e) {
+    const x = e.target.value;
+    setPassword(x);
 
-      // alert(cpassword + " " +password);
+    if (x.length >= 7 && x.length <= 15) {
+      changeIsCorrect(true);
+    } else {
+      changeIsCorrect(false);
+    }
+  }
 
-      if(e.target.value===password)
-      {
-        changePasswordMatched(()=>{
-          return true;
-        })
-      }
-      else
-      {
-        changePasswordMatched(()=>
-        {
-          return false;
-        })
-      }
+  function CheckHandler(e) {
+    setCPassword(() => {
+      const x = e.target.value;
+      return x;
+    });
+
+    if (e.target.value === password) {
+      changePasswordMatched(true);
+    } else {
+      changePasswordMatched(false);
+    }
   }
 
   return (
-
     <div className="register">
-    <div className="register-container">
-      <div className="register-form">
-        <h2 className='header'>Register</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={PassHandler}
-        />
-        {isCorrect?<p style={{color:"green"}}>Correct</p>:<p style={{color:"red"}}>Password must be of 7-15 character && must contain a digit,a uppercase letter && a lowercase letter</p>}
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={cpassword}
-          onChange={CheckHandler}
-        />
-        {passwordMatched?<p style={{color:"green"}}>Password Matched</p>:<p style={{color:"red"}}>Not Yet Matched</p>}
-        <button onClick={handleRegister} className="register-btn" >Register</button>
-        <Link to="/login" className="register2">Log into Account</Link>
+      <div className="register-container">
+        <div className="register-form">
+          <h2 className="header">Register</h2>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required="true"
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required="true"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={PassHandler}
+            required="true"
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={cpassword}
+            onChange={CheckHandler}
+            required="true"
+          />
+          {passwordMatched ? (
+            <p className="success-message">Password Matched</p>
+          ) : (
+            <p className="error-message">Not Yet Matched</p>
+          )}
+          {isCorrect ? (
+            <p className="success-message">Correct</p>
+          ) : (
+            <p className="error-message">
+              Note: Password must be 7-15 characters and contain a digit, an uppercase letter, and a lowercase letter
+            </p>
+          )}
+          <button onClick={handleSignup} className="register-btn">
+            Register
+          </button>
+          <Link to="/login" className="register2">
+            Log into Account
+          </Link>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
 
-export default Register;
+export default Signup;
+

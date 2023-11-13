@@ -1,25 +1,59 @@
+// routes/userRoutes.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Import your User model
+const User = require('../models/User');
 
-// Example route for fetching user information including profile picture URL
+// Fetch user information
 router.get('/', async (req, res) => {
   try {
-    // Assuming you have the user's ID from your authentication middleware
-    const userId = req.user.id; // Adjust this based on your authentication setup
+    const username = req.user.username; // Assuming username is used for identification
 
-    // Retrieve the user's information, including the profile picture URL, from the database
-    const user = await User.findById(userId);
+    const user = await User.findOne({ username });
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Return the user's data, including the profile picture URL
-    res.json(user);
+    const userData = {
+      username: user.username,
+      email: user.email,
+      profilePicture: user.profilePicture, // Include other fields as needed
+    };
+
+    res.json(userData);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error fetching user information' });
+  }
+});
+
+// Update user information
+router.put('/', async (req, res) => {
+  try {
+    const username = req.user.username; // Assuming username is used for identification
+    const { email, password, cpassword } = req.body; // Include other fields as needed
+
+    const user = await User.findOneAndUpdate(
+      { username },
+      { email, password, cpassword },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Optionally, you can return the updated user data
+    const updatedUserData = {
+      username: user.username,
+      email: user.email,
+      profilePicture: user.profilePicture, // Include other fields as needed
+    };
+
+    res.json({ message: 'User updated successfully', user: updatedUserData });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error updating user information' });
   }
 });
 

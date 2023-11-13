@@ -16,13 +16,17 @@ router.post('/', async (req, res) => {
 });
 
 // Retrieve all expense records
+
+// Retrieve all expense records for a specific user
 router.get('/', async (req, res) => {
   try {
-    const expenseRecords = await Expense.find();
+    const userId = req.query.userId;
+    const expenseRecords = await Expense.find({ user: userId });
     res.status(200).json(expenseRecords);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve expense data' });
   }
 });
+
 
 module.exports = router;

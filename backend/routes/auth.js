@@ -9,6 +9,84 @@ const User = require('../models/User');
 const jwtSecretKey = "" + process.env.JWT_SECRET_KEY;
 // const jwtSecretKey = process.env.JWT_SECRET_KEY;
 console.log('jwtSecretKey:', jwtSecretKey); // Add this line for debugging
+require('dotenv').config();
+
+// Reset password
+// router.post('/testing', async (req, res) => {
+//   try {
+//     const {  email, password } = req.body;
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Check if the user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+
+//       console.log( email );
+//       console.log( password );
+//       const userEmailToUpdate = email;
+//       const newPassword = hashedPassword;
+     
+// // Update the user's username
+// // const newUsername = 'newUsername';
+
+// // Use updateOne to update a single document
+// User.updateOne({ email: userEmailToUpdate }, { $set: { password: newPassword , cpassword: newPassword}  })
+//   .then(result => {
+//     console.log(`Updated ${result.modifiedCount} document.`);
+//   })
+//   .catch(error => {
+//     console.error('Error updating document:', error);
+//   });
+//       // console.log( cpassword );
+//     }  
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Registration failed' });
+//   }  
+// });
+
+
+
+router.post('/testing', async (req, res) => {
+  try {
+    const { email, password, token } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Check if the user exists and the reset token is valid
+    const user = await User.findOne({ email, resetToken: token });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found or invalid token' });
+    }
+
+    // Verify the reset token
+    jwt.verify(token, jwtSecretKey, async (err, decodedToken) => {
+      if (err) {
+        console.error(err);
+        return res.status(400).json({ message: 'Invalid token' });
+      }
+
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+
+      if (currentTimestamp > decodedToken.exp) {
+        return res.status(400).json({ message: 'Token has expired' });
+      }
+
+      // Update the user's password
+      user.password = hashedPassword;
+      user.resetToken = null; // Clear the reset token
+      await user.save();
+
+      res.json({ message: 'Password reset successful' });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 
 // Registration route
@@ -36,9 +114,9 @@ router.post('/signup', async (req, res) => {
     await user.save();
 
     // Generate and send a JWT token for authentication
-    const token = jwt.sign({ email: user.email }, jwtSecretKey, { expiresIn: '1h' });
+    const token = jwt.sign({ email: user.email, userId: user._id }, jwtSecretKey, { expiresIn: '1h' });
     res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set the JWT token as a cookie
-    res.status(201).json({ message: 'User registered successfully', token });
+    res.status(201).json({ message: 'User registered successfully', token, userId: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Registration failed' });
@@ -49,7 +127,6 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-
     // Find the user by email
     const user = await User.findOne({ email });
 
@@ -62,9 +139,9 @@ router.post('/login', async (req, res) => {
 
     if (passwordMatch) {
       // Password matches, generate and send a JWT token
-      const token = jwt.sign({ email: user.email }, jwtSecretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ email: user.email, userId: user._id }, jwtSecretKey, { expiresIn: '1h' });
       res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set the JWT token as a cookie
-      res.json({ message: 'Login successful', token });
+      res.json({ message: 'Login successful', token, userId: user._id });
     } else {
       res.status(401).json({ message: 'Incorrect password' });
     }
@@ -74,7 +151,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Forget Password route
+// Forgot Password route
 router.post('/forget-password', async (req, res) => {
   const { email } = req.body;
 
@@ -86,7 +163,7 @@ router.post('/forget-password', async (req, res) => {
     }
 
     // Generate a unique reset token
-    const resetToken = jwt.sign({ email: user.email }, jwtSecretKey, { expiresIn: '15m' });
+    const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '15m' });
 
     // Save the reset token to the user in the database
     user.resetToken = resetToken;
@@ -94,17 +171,16 @@ router.post('/forget-password', async (req, res) => {
 
     // Send a reset email with a link containing the reset token
     const transporter = nodemailer.createTransport({
-    
-      host: 'sandbox.smtp.mailtrap.io',
-      port: 2525,
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
       auth: {
-        user: "fb0504758a1a74",
-        pass: "3cf88027e9164d"
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
     const mailOptions = {
-      from: "fb0504758a1a74",
+      from: process.env.SMTP_USER,
       to: email,
       subject: 'Password Reset',
       html: `<p>Click <a href="http://localhost:3000/reset-password/${resetToken}">here</a> to reset your password.</p>`,
@@ -124,10 +200,56 @@ router.post('/forget-password', async (req, res) => {
   }
 });
 
+
+
+
+// Reset Password route
+router.post('/reset-password/:token', async (req, res) => {
+  const resetToken = req.params.token;
+  const { password } = req.body;
+
+  try {
+    // Verify the reset token
+    const user = await User.findOne({ resetToken });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found or invalid token' });
+    }
+
+    // Check if the token is expired
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    const tokenExpireTimestamp = jwt.decode(resetToken).exp;
+
+    if (currentTimestamp > tokenExpireTimestamp) {
+      return res.status(400).json({ message: 'Token has expired' });
+    }
+
+    // Check if passwords match
+    // if (password !== confirmPassword) {
+    //   return res.status(400).json({ message: 'Passwords do not match' });
+    // }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update the user's password
+    user.password = hashedPassword;
+    user.resetToken = null; // Clear the reset token
+    await user.save();
+
+    res.json({ message: 'Password reset successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 // Logout route
 router.post('/logout', (req, res) => {
   res.clearCookie('jwt'); // Clear the JWT token cookie
   // res.json({ message: 'Logout successful' });
+  console.log('Logout Successful');
 });
 
 module.exports = router;

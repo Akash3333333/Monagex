@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
 // Retrieve all income records
 router.get('/', async (req, res) => {
   try {
-    const incomeRecords = await Income.find();
+    const userId = req.query.userId;
+    const incomeRecords = await Income.find({ user: userId });
     res.status(200).json(incomeRecords);
   } catch (error) {
     res.status(500).json({ error: 'Failed to retrieve income data' });

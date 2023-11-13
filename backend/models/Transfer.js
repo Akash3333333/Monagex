@@ -3,7 +3,9 @@
 const mongoose = require('mongoose');
 
 const transferSchema = new mongoose.Schema({
+  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   currentDate: { type: Date, required: true },
+  //  currentTime: { type: Date , required: true },
   amount: { type: Number, required: true },
   paymentFrom: { type: String, required: true },
   paymentTo: { type: String, required: true },
