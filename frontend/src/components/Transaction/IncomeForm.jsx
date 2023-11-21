@@ -31,8 +31,13 @@ const InputGroup = ({ label, type, id, name, options, onChange, required }) => (
 
 const getCurrentDateTime = () => {
   const now = new Date();
-  const formattedDate = now.toISOString().split('T')[0];
-  const formattedTime = now.toTimeString().split(' ')[0];
+
+  const ISTOffset = 330 * 60000; // 5 hours and 30 minutes in milliseconds
+  const istDate = new Date(now.getTime() + ISTOffset);
+
+  const formattedDate = `${istDate.getDate().toString().padStart(2, '0')}-${(istDate.getMonth() + 1).toString().padStart(2, '0')}-${istDate.getFullYear()}`;
+  const formattedTime = `${istDate.getHours().toString().padStart(2, '0')}:${istDate.getMinutes().toString().padStart(2, '0')}:${istDate.getSeconds().toString().padStart(2, '0')}`;
+
   return { date: formattedDate, time: formattedTime };
 };
 
@@ -55,21 +60,14 @@ const IncomeForm = ({ userId }) => {
 
     const { date, time } = getCurrentDateTime();
     const payload = {
-       user: userId,
+      user: userId,
       ...incomeFormData,
       currentDate: date,
       currentTime: time,
     };
 
-    console.log('Request Payload:', payload);
-
     try {
-      const response = await axios.post('http://localhost:5000/api/income', {
-         user: userId,
-        ...incomeFormData,
-        currentDate: date,
-        currentTime: time,
-      });
+      const response = await axios.post('http://localhost:5000/api/income', payload);
 
       toast('Income data submitted successfully', {
         position: toast.POSITION.TOP_CENTER,

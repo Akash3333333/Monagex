@@ -1,18 +1,21 @@
+// UserProfile.jsx
 import React from "react";
-// import Sidebar from "../Sidebar";
-// import Feed from "../Feed";
-import './UserProfile.css'
+import './UserProfile.css';
 
-function UserProfile()
-{
-    return(
-        <>
-          <div className="userProfileContainer">
-     HI
-      {/* <Feed /> */}
-    </div>
-        </>
-    )
-};
+function UserProfile({ category, note }) {
+  return (
+    <>
+      <div className="userProfileContainer">
+        HI, Dont't Forget to pay your 
+        {(category === "Bill" || category === "Recharge") &&
+        note ? (
+          <div className="paymentReminder">
+            <p>{note}</p>
+          </div>
+        ) : null}
+      </div>
+    </>
+  );
+}
 
 export default UserProfile;

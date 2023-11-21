@@ -6,9 +6,10 @@
 
 .income-content {
     display: flex;
-    flex: 0.4;
+    flex: 1;
     background-image: url('../../../public/images/income.jpg');
-    background-size: cover;
+    background-size:cover;
+    /* background-repeat: no-repeat; */
 }
 
 /* Define styling for IncomeForm as needed */

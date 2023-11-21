@@ -1,8 +1,9 @@
+// ExpenseForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './ExpenseForm.css'; // Ensure you have the appropriate CSS file
+import './ExpenseForm.css';
 
 const InputGroup = ({ label, type, id, name, options, onChange, required }) => (
   <div className="input-group">
@@ -31,8 +32,8 @@ const InputGroup = ({ label, type, id, name, options, onChange, required }) => (
 
 const getCurrentDateTime = () => {
   const now = new Date();
-  const formattedDate = now.toISOString().split('T')[0];
-  const formattedTime = now.toTimeString().split(' ')[0];
+  const formattedDate = `${now.getDate().toString().padStart(2, '0')}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getFullYear()}`;
+  const formattedTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
   return { date: formattedDate, time: formattedTime };
 };
 
@@ -41,7 +42,7 @@ const ExpenseForm = ({ userId }) => {
     amount: 0,
     category: '',
     paymentMethod: '',
-    uploadFile:'',
+    uploadFile: '',
     payee: '',
     note: '',
   });
@@ -55,15 +56,16 @@ const ExpenseForm = ({ userId }) => {
     e.preventDefault();
 
     const { date, time } = getCurrentDateTime();
+    const payload = {
+      user: userId, // Include the userId in the payload
+      ...expenseFormData,
+      currentDate: date,
+      currentTime: time,
+    };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/expense', {
-        user: userId,
-        ...expenseFormData,
-        currentDate: date,
-        currentTime: time,
-      });
-
+      const response = await axios.post('http://localhost:5000/api/expense', payload);
+      console.log(response);
       toast('Expense data submitted successfully', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
@@ -71,12 +73,21 @@ const ExpenseForm = ({ userId }) => {
         hideProgressBar: false,
       });
     } catch (error) {
-      toast.error('Please fill all required fields!', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-        closeButton: false,
-        hideProgressBar: false,
-      });
+      if (error.response && error.response.status === 400) {
+        toast.error('Please fill all required fields!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+      } else {
+        toast.error('Failed to submit expense data. Please try again later.', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+      }
       console.error('Error submitting expense data:', error);
     }
   };
@@ -104,7 +115,7 @@ const ExpenseForm = ({ userId }) => {
         type="select"
         id="paymentMethod"
         name="paymentMethod"
-        options={['Credit Card', 'Cash','UPI']}
+        options={['Credit Card', 'Cash', 'UPI']}
         onChange={handleInputChange}
         required
       />

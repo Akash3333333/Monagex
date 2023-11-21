@@ -3,16 +3,14 @@
 const mongoose = require('mongoose');
 
 const transferSchema = new mongoose.Schema({
-  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  currentDate: { type: Date, required: true },
-  //  currentTime: { type: Date , required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, required: true },
+  currentDate: { type: String, required: true },
+  currentTime: { type: String, required: true },
   amount: { type: Number, required: true },
   paymentFrom: { type: String, required: true },
   paymentTo: { type: String, required: true },
-  uploadFile: { type: String }, // You can store the file path or use a file storage service
+  uploadFile: { type: String },
   note: { type: String },
-});
+}, { timestamps: true });
 
-const Transfer = mongoose.model('Transfer', transferSchema);
-
-module.exports = Transfer;
+module.exports = mongoose.model('Transfer', transferSchema);

@@ -1,12 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './UserNav.css';
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import './UserNav.css';
 
 function UserNav() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUser(response.data.user);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    if (token) {
+      fetchUserData();
+    }
+  }, []);
+
+  useEffect(() => {
+    // console.log("unav user:", user);
+  }, [user]); // Log user information when it changes
 
   const openAvatarMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,9 +53,51 @@ function UserNav() {
         </Link>
       </div>
       <div className="user-nav-right">
-        <div className="avatar-container">
-          <Avatar onClick={openAvatarMenu} className="user-avatar">
-            {/* You can display the user's initials or profile picture here */}
+          <div className="user">
+          <ul className="user-menu-list">
+                <li>
+                  <Link to="/" >
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/income" >
+                  Record Transaction
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/view" >
+                  View Transaction
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/group" >
+                  Group
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/notifications" >
+                  Notifications
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/split" >
+                  Split Expenses
+                  </Link>
+                </li>
+              </ul>
+          </div>
+          <div className="avatar-container">
+          <Avatar
+            onClick={openAvatarMenu}
+            className="user-avatar">
+              {user.profilePhoto ? (
+                <img src={`http://localhost:5000/uploads/${user.profilePhoto}`} alt="Profile"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' , border: '4px solid #fff',
+                borderRadius: '50%' }} />
+              ) : (
+                <img src="/default-avatar.png" alt="Profile" />
+              )}
           </Avatar>
           <Popover
             open={Boolean(anchorEl)}
@@ -47,6 +118,11 @@ function UserNav() {
                 <li>
                   <Link to="/profile" onClick={closeAvatarMenu}>
                     Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={closeAvatarMenu}>
+                    Dashboard
                   </Link>
                 </li>
                 <li>

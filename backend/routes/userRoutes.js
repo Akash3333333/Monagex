@@ -1,53 +1,82 @@
-// routes/userRoutes.js
+// userRoutes.js
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
+
 
 // Fetch user information
 router.get('/', async (req, res) => {
   try {
-    const username = req.user.username; // Assuming username is used for identification
+    const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
 
-    const user = await User.findOne({ username });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const userData = {
-      username: user.username,
-      email: user.email,
-      profilePicture: user.profilePicture, // Include other fields as needed
-    };
+    jwt.verify(token, jwtSecretKey, async (err, user) => {
+      if (err) {
+        if (err.name === 'TokenExpiredError') {
+          return res.status(401).json({ message: 'Token has expired' });
+        }
+        return res.status(403).json({ message: 'Forbidden' });
+      }
+      // console.log(user);
+      const userId = user.userId;
 
-    res.json(userData);
+      const userFromDb = await User.findById(userId);
+      // console.log(userFromDb);
+      if (!userFromDb) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+       const userData = {
+        username: userFromDb.username,
+        email: userFromDb.email,
+        userID : userFromDb._id,
+      //   // Include other fields as needed
+       };
+
+      res.json({ user: userFromDb });
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error fetching user information' });
   }
 });
 
+
+
 // Update user information
 router.put('/', async (req, res) => {
   try {
-    const username = req.user.username; // Assuming username is used for identification
-    const { email, password, cpassword } = req.body; // Include other fields as needed
+    const token = req.cookies.jwt || req.headers.authorization?.split(' ')[1];
 
-    const user = await User.findOneAndUpdate(
-      { username },
-      { email, password, cpassword },
+    if (!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const user = jwt.verify(token, jwtSecretKey);
+    const userId = user.userId;
+
+    const { username, email } = req.body;
+
+    const userFromDb = await User.findOneAndUpdate(
+      { _id: userId },
+      { username, email },
       { new: true }
     );
 
-    if (!user) {
+    if (!userFromDb) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Optionally, you can return the updated user data
     const updatedUserData = {
-      username: user.username,
-      email: user.email,
-      profilePicture: user.profilePicture, // Include other fields as needed
+      username: userFromDb.username,
+      email: userFromDb.email,
+      // profilePicture: userFromDb.profilePicture, // Include other fields as needed
     };
 
     res.json({ message: 'User updated successfully', user: updatedUserData });
@@ -56,5 +85,6 @@ router.put('/', async (req, res) => {
     res.status(500).json({ message: 'Error updating user information' });
   }
 });
+// ... (other routes)
 
 module.exports = router;

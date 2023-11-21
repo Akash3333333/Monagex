@@ -1,8 +1,9 @@
+// TransferForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './TransferForm.css'; // Ensure you have the appropriate CSS file
+import './TransferForm.css';
 
 const InputGroup = ({ label, type, id, name, options, onChange, required }) => (
   <div className="input-group">
@@ -41,7 +42,7 @@ const TransferForm = ({ userId }) => {
     amount: 0,
     paymentFrom: '',
     paymentTo: '',
-    uploadFile:'',
+    uploadFile: '',
     note: '',
   });
 
@@ -54,15 +55,16 @@ const TransferForm = ({ userId }) => {
     e.preventDefault();
 
     const { date, time } = getCurrentDateTime();
+    const payload = {
+      user: userId, // Include the userId in the payload
+      ...transferFormData,
+      currentDate: date,
+      currentTime: time,
+    };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/transfer', {
-        user: userId,
-        ...transferFormData,
-        currentDate: date,
-        currentTime: time,
-      });
-
+      const response = await axios.post('http://localhost:5000/api/transfer', payload);
+      console.log(response);
       toast('Transfer data submitted successfully', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
@@ -70,12 +72,21 @@ const TransferForm = ({ userId }) => {
         hideProgressBar: false,
       });
     } catch (error) {
-      toast.error('Please fill all required fields!', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-        closeButton: false,
-        hideProgressBar: false,
-      });
+      if (error.response && error.response.status === 400) {
+        toast.error('Please fill all required fields!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+      } else {
+        toast.error('Failed to submit transfer data. Please try again later.', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+      }
       console.error('Error submitting transfer data:', error);
     }
   };
@@ -91,22 +102,22 @@ const TransferForm = ({ userId }) => {
         required
       />
       <InputGroup
-        label="From Account"
+        label="Payment From"
         type="text"
-        id="fromAccount"
-        name="fromAccount"
+        id="paymentFrom"
+        name="paymentFrom"
         onChange={handleInputChange}
         required
       />
       <InputGroup
-        label="To Account"
+        label="Payment To"
         type="text"
-        id="toAccount"
-        name="toAccount"
+        id="paymentTo"
+        name="paymentTo"
         onChange={handleInputChange}
         required
       />
-        <InputGroup
+      <InputGroup
         label="Upload File"
         type="file"
         id="uploadFile"

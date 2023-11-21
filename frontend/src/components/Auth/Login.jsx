@@ -1,46 +1,52 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Login.css';
 import { toast } from 'react-toastify';
-// import { jwtDecode } from 'jwt-decode';
+import './Login.css';
 
-function Login() {
+const Login = () => { 
+  // const [user, setUser] = useState(' ');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isCorrect, setIsCorrect] = useState(false);
   const navigate = useNavigate();
-  const token = useParams();
 
-  const handleLogin = () => {
-    axios
-      .post('http://localhost:5000/auth/login', {
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/auth/login', {
         email,
         password,
-      })
-      .then((response) => {
-        const token = response.data.token;
-        // Store the JWT token in local storage or session storage
-        localStorage.setItem('jwt', token);
-       
-        toast.success('Login successful!', {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: false,
-          className: 'toast-message',
-        });
-        navigate('/');
-      })
-      .catch((error) => {
-        toast.error('Invalid credentials!', {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: false,
-        });
-        // console.error(error);
       });
+  
+      const token = response.data.token;
+      const user = response.data;
+      const obtainedUserId = response.data.user._id; // Assuming the user ID is available in the response
+      // console.log('JWT Token:', token);
+      console.log(email);
+      console.log(obtainedUserId);
+      console.log(user);
+      localStorage.setItem('jwt', token);
+      localStorage.setItem('userId', obtainedUserId); // Set the user ID in local storage
+  
+      // Redirect to the user's profile page after login
+      navigate('/');
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        const errorMessage = error.response.data.message;
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received:', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error setting up the request:', error.message);
+      }
+    }
   };
 
   return (
@@ -48,7 +54,7 @@ function Login() {
       <div className="login-form">
         <h2 className="header">Sign In</h2>
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -61,19 +67,16 @@ function Login() {
         />
         <button onClick={handleLogin}>Login</button>
         <div className="register2">
-        <Link to="/signup">
-          Go Back to Register
-        </Link>
+          <Link to="/signup">Go Back to Register</Link>
         </div>
         <div className="forgetpassword">
-        <Link to="/forget-password" className="forgot-password-link">
-          Forgot Password?
-        </Link>
+          <Link to="/forget-password" className="forgot-password-link">
+            Forgot Password?
+          </Link>
         </div>
-
       </div>
     </div>
   );
-}
+};
 
 export default Login;

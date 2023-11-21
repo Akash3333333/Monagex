@@ -1,80 +1,105 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardActions, CardHeader, Avatar, Button, Typography, Grid } from '@mui/material';
-import './Friend.css';
-import SingleUser from './SingleUser';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const dummyFriends = [
-  {
-    id: 1,
-    name: 'akash222',
-    avatar: '/images/user1.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 2,
-    name: 'abc',
-    avatar: '/images/user2.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 3,
-    name: 'hardik777',
-    avatar: '/images/user3.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 4,
-    name: 'akm111',
-    avatar: '/images/user5.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 5,
-    name: 'priyank111',
-    avatar: '/images/user4.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 6,
-    name: 'xyz111',
-    avatar: '/images/user6.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 7,
-    name: 'nnn111',
-    avatar: '/images/user7.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  {
-    id: 8,
-    name: 'sy22',
-    avatar: '/images/user8.jpg',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  },
-  // {
-  //   id: 9,
-  //   name: 'Abhishek yadav',
-  //   avatar: '/images/user9.jpg',
-  //   bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  // },
-// { id: 10,
-// name: 'Friend 10',
-// avatar: 'https://via.placeholder.com/150',
-// bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-// },
-  
-];
+const Friend = ({ userEmail }) => {
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [userId, setUserId] = useState('');
 
-const Friend = (props) => {
+  useEffect(() => {
+    const token = localStorage.getItem('jwt');
+
+    if (token) {
+      axios.get('http://localhost:5000/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserId(response.data.user._id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [userEmail]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/friend-requests/getfriends')
+      .then((response) => {
+        const myUsers = response.data.data;
+        const currentUser = myUsers.find((user) => user.email === userEmail);
+
+        if (currentUser) {
+          setSelectedUsers(currentUser.friends.map((friend) => ({ ...friend, selected: false })));
+        }
+      })
+      .catch(error => console.error('Error fetching users:', error));
+  }, [userEmail]);
+
+  const handleAddToGroup = (friendId) => {
+    setSelectedUsers((prevUsers) => prevUsers.map((friend) =>
+      friend._id === friendId ? { ...friend, selected: !friend.selected } : friend
+    ));
+  };
+
+  const handleCreateGroup = async () => {
+    const groupName = prompt('Enter the group name:');
+
+    if (!groupName) {
+      return;
+    }
+
+    const selectedUserIds = selectedUsers.filter((friend) => friend.selected).map((friend) => friend._id);
+
+    try {
+      const response = await axios.post('http://localhost:5000/groups/create', {
+        groupName,
+        members: [...selectedUserIds, userId],
+      });
+
+      toast("Group Created Successfully", {
+        position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+      });
+      // You can redirect to the group page or update the UI accordingly
+    } catch (error) {
+      console.error('Error creating group:', error);
+      toast.error('Error creating group',{
+        position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+      });
+    }
+  };
+
   return (
-    <div className="friend-container">
-      {/* <h1 style={{padding:"5px", margin:"1rem"}}>Add Friends</h1> */}
-      <Grid container spacing={2} padding={2} className='grid-container'>
-        {dummyFriends.map((friend) => (
-          <SingleUser setSelectedUsers={props.setSelectedUsers} friend={friend} />
+    <div>
+      <h2>Your Friends</h2>
+      <ul>
+        {selectedUsers.map((friend) => (
+          <li key={friend._id}>
+            <div>
+              <p>{friend.username}</p>
+              {friend.profilePhoto ? (
+              <img src={`http://localhost:5000/uploads/${friend.profilePhoto}`} alt="Profile"
+                style={{ width: '100px', height: '100px', objectFit: 'cover' , border: '4px solid #2c2d31',
+                borderRadius: '10%' }} />
+                ) : (
+                  <img src="/images/noAvatar.png" alt="Profile" style={{ width: '100px', height: '100px', objectFit: 'cover' , border: '4px solid #2c2d31',
+                  borderRadius: '10%' }} />
+                )}
+              <button onClick={() => handleAddToGroup(friend._id)}>+</button>
+            </div>
+          </li>
         ))}
-      </Grid>
+      </ul>
+      <button onClick={handleCreateGroup}>Create Group</button>
+      <ToastContainer />
     </div>
   );
 };

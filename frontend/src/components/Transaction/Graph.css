@@ -2,6 +2,7 @@
 .graph-container {
     display: flex;
     justify-content: center;
+    width: 100%;
   }
   
   /* Style the chart container */
@@ -13,7 +14,7 @@
     padding: 1rem;
     border: 2px solid #fff;
     border-radius: 10px;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
   }
   

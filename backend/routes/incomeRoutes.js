@@ -1,4 +1,3 @@
-// routes/incomeRoutes.js
 const express = require('express');
 const router = express.Router();
 const Income = require('../models/Income');
@@ -9,20 +8,24 @@ router.post('/', async (req, res) => {
     const newIncome = new Income(req.body);
     const savedIncome = await newIncome.save();
     res.status(201).json(savedIncome);
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to save income data' });
+  }  catch (error) {
+    res.status(500).json({ error: 'Failed to save income data', details: error.message });
   }
 });
 
-// Retrieve all income records
-router.get('/', async (req, res) => {
+// Retrieve all income records for a specific user
+router.get('/user/:userId', async (req, res) => {
   try {
-    const userId = req.query.userId;
+    const userId = req.params.userId;
+    // console.log('userId:', userId); // Log the userId for debugging
     const incomeRecords = await Income.find({ user: userId });
+    // console.log('incomeRecords:', incomeRecords); // Log the retrieved records for debugging
     res.status(200).json(incomeRecords);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve income data' });
+    console.error('Error retrieving income data:', error.message);
+    res.status(500).json({ error: 'Failed to retrieve income data', details: error.message });
   }
 });
+
 
 module.exports = router;

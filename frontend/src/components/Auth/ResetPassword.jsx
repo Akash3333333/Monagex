@@ -18,7 +18,7 @@ const ResetPassword = () => {
          return;
       }
     // Send a request to reset the password
-    axios.post('http://localhost:5000/auth/testing', {
+    axios.post(`http://localhost:5000/auth/reset-password/${token}`, {
       email,
       password,
       token,

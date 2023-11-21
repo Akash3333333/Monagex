@@ -1,8 +1,11 @@
-// routes/transferRoutes.js
-
+// transferRoutes.js
 const express = require('express');
 const router = express.Router();
 const Transfer = require('../models/Transfer');
+
+const handleErrorResponse = (res, message) => {
+  res.status(500).json({ error: message });
+};
 
 // Create a new transfer record
 router.post('/', async (req, res) => {
@@ -11,18 +14,18 @@ router.post('/', async (req, res) => {
     const savedTransfer = await newTransfer.save();
     res.status(201).json(savedTransfer);
   } catch (error) {
-    res.status(400).json({ error: 'Failed to save transfer data' });
+    handleErrorResponse(res, 'Failed to save transfer data');
   }
 });
 
-// Retrieve all transfer records
-router.get('/', async (req, res) => {
+// Retrieve all transfer records for a specific user
+router.get('/user/:userId', async (req, res) => {
   try {
-    const userId = req.query.userId;
+    const userId = req.params.userId;
     const transferRecords = await Transfer.find({ user: userId });
     res.status(200).json(transferRecords);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve transfer data' });
+    handleErrorResponse(res, 'Failed to retrieve transfer data');
   }
 });
 

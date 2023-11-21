@@ -6,88 +6,8 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 const User = require('../models/User');
-const jwtSecretKey = "" + process.env.JWT_SECRET_KEY;
-// const jwtSecretKey = process.env.JWT_SECRET_KEY;
-console.log('jwtSecretKey:', jwtSecretKey); // Add this line for debugging
 require('dotenv').config();
-
-// Reset password
-// router.post('/testing', async (req, res) => {
-//   try {
-//     const {  email, password } = req.body;
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     // Check if the user already exists
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-
-//       console.log( email );
-//       console.log( password );
-//       const userEmailToUpdate = email;
-//       const newPassword = hashedPassword;
-     
-// // Update the user's username
-// // const newUsername = 'newUsername';
-
-// // Use updateOne to update a single document
-// User.updateOne({ email: userEmailToUpdate }, { $set: { password: newPassword , cpassword: newPassword}  })
-//   .then(result => {
-//     console.log(`Updated ${result.modifiedCount} document.`);
-//   })
-//   .catch(error => {
-//     console.error('Error updating document:', error);
-//   });
-//       // console.log( cpassword );
-//     }  
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Registration failed' });
-//   }  
-// });
-
-
-
-router.post('/testing', async (req, res) => {
-  try {
-    const { email, password, token } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Check if the user exists and the reset token is valid
-    const user = await User.findOne({ email, resetToken: token });
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found or invalid token' });
-    }
-
-    // Verify the reset token
-    jwt.verify(token, jwtSecretKey, async (err, decodedToken) => {
-      if (err) {
-        console.error(err);
-        return res.status(400).json({ message: 'Invalid token' });
-      }
-
-      const currentTimestamp = Math.floor(Date.now() / 1000);
-
-      if (currentTimestamp > decodedToken.exp) {
-        return res.status(400).json({ message: 'Token has expired' });
-      }
-
-      // Update the user's password
-      user.password = hashedPassword;
-      user.resetToken = null; // Clear the reset token
-      await user.save();
-
-      res.json({ message: 'Password reset successful' });
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
-
-
-
+const jwtSecretKey = process.env.JWT_SECRET_KEY;
 
 // Registration route
 router.post('/signup', async (req, res) => {
@@ -125,31 +45,23 @@ router.post('/signup', async (req, res) => {
 
 // Login route
 router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    // Find the user by email
-    const user = await User.findOne({ email });
+  const { email, password } = req.body;
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+  // Validate user credentials (you should implement your own logic here)
+  const user = await User.findOne({ email });
 
-    // Verify the password
-    const passwordMatch = await bcrypt.compare(password, user.password);
+  if (user && bcrypt.compareSync(password, user.password)) {
+    // User is valid, generate and send a JWT token
+    const token = jwt.sign({ email: user.email, userId: user._id }, jwtSecretKey, { expiresIn: '1h' });
 
-    if (passwordMatch) {
-      // Password matches, generate and send a JWT token
-      const token = jwt.sign({ email: user.email, userId: user._id }, jwtSecretKey, { expiresIn: '1h' });
-      res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set the JWT token as a cookie
-      res.json({ message: 'Login successful', token, userId: user._id });
-    } else {
-      res.status(401).json({ message: 'Incorrect password' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Login failed' });
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set the JWT token as a cookie
+    res.json({ token , user });
+  } else {
+    // Invalid credentials
+    res.status(401).json({ message: 'Invalid credentials' });
   }
 });
+
 
 // Forgot Password route
 router.post('/forget-password', async (req, res) => {
@@ -206,34 +118,32 @@ router.post('/forget-password', async (req, res) => {
 // Reset Password route
 router.post('/reset-password/:token', async (req, res) => {
   const resetToken = req.params.token;
-  const { password } = req.body;
-
+  const { email, password, token } = req.body;
+  
+  
   try {
     // Verify the reset token
-    const user = await User.findOne({ resetToken });
-
+    const user = await User.findOne({ email });
+    
     if (!user) {
       return res.status(404).json({ message: 'User not found or invalid token' });
     }
-
+    
     // Check if the token is expired
     const currentTimestamp = Math.floor(Date.now() / 1000);
-    const tokenExpireTimestamp = jwt.decode(resetToken).exp;
+    // const tokenExpireTimestamp = jwt.decode(resetToken).exp;
+    const tokenExpireTimestamp = jwt.decode(resetToken).exp * 1000;
 
     if (currentTimestamp > tokenExpireTimestamp) {
       return res.status(400).json({ message: 'Token has expired' });
     }
-
-    // Check if passwords match
-    // if (password !== confirmPassword) {
-    //   return res.status(400).json({ message: 'Passwords do not match' });
-    // }
 
     // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Update the user's password
     user.password = hashedPassword;
+    user.cpassword =hashedPassword;
     user.resetToken = null; // Clear the reset token
     await user.save();
 
@@ -244,12 +154,24 @@ router.post('/reset-password/:token', async (req, res) => {
   }
 });
 
+//Logout route
+router.post('/logout', async (req, res) => {
+  try {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    
+    // Validate the token
+    const decoded = jwt.verify(token, jwtSecretKey); // Replace with your actual secret key
 
-// Logout route
-router.post('/logout', (req, res) => {
-  res.clearCookie('jwt'); // Clear the JWT token cookie
-  // res.json({ message: 'Logout successful' });
-  console.log('Logout Successful');
+    // Continue with logout logic (remove token, etc.)
+    // ...
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'Internal server error during logout' });
+  }
 });
+
+
 
 module.exports = router;
