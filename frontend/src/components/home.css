@@ -1,29 +1,34 @@
-  .home-container {
+/* home.css */
+
+/* Container styling */
+.home-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ensure the container takes full viewport height */
-}
-
-.home-content {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  /* Content styling */
+  .home-content {
     display: flex;
-    flex: 0.4;
-    /* background-image: url('../../../public/images/income.jpg'); */
-    /* background-size: cover; */
-}
-
-/* Define styling for IncomeForm as needed */
-
-.footer {
-    background-color: #1a1a1a;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Define styling for Footer content as needed */
-
+    flex: 1;
+    flex-direction: column;
+  }
+  
+  .bottom-items {
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+  }
+  
+  .splitgrp {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 2rem;
+    margin-top: 4rem;
+  }
+  
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
     .home-container {

@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Signup.css';
 import { toast } from 'react-toastify';
 
-function Signup() {
+const Signup = () => {
   const [username, setUsername] = useState('');
   const [cpassword, setCPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -13,10 +13,9 @@ function Signup() {
   const [passwordMatched, changePasswordMatched] = useState(false);
   const navigate = useNavigate();
 
-
   const handleSignup = async (e) => {
     e.preventDefault();
-  
+
     try {
       const user = {
         username: username,
@@ -24,40 +23,38 @@ function Signup() {
         password: password,
         cpassword: cpassword,
       };
-  
+
       const response = await axios.post('http://localhost:5000/auth/signup', user);
-  
+
       if (response.status === 201) {
-        toast.success('Registration successful!',{
+        toast.success('Registration successful!', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
           closeButton: false,
           hideProgressBar: false,
         });
-        const token = response.data.token;
 
-  // Store the token securely (e.g., in a secure cookie or local storage)
-  // You might want to use a state management library for handling global state.
-  // For simplicity, storing in local storage here:
-  localStorage.setItem('jwtToken', token);
+        const token = response.data.token; 
+        const obtainedUserId = response.data.userId; // Assuming the user ID is available in the response
+        localStorage.setItem('jwtToken', token);
+        localStorage.setItem('userId', obtainedUserId); // Set the user ID in local storage
+  
+
+        // Redirect to the user's profile page after registration
         navigate('/login');
-        // Registration successful
-        console.log('Registration successful');
       } else {
-        // Handle other status codes or errors
         console.log('Registration failed:', response.data.message);
       }
     } catch (error) {
-       toast.error('Error in registration!',{
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-      closeButton: false,
-      hideProgressBar: false,
-    });
+      toast.error('Error in registration!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: false,
+      });
       console.error('Error during registration:', error);
     }
   };
-  
 
   function PassHandler(e) {
     const x = e.target.value;
@@ -96,7 +93,7 @@ function Signup() {
             required="true"
           />
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}

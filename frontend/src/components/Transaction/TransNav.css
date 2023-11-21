@@ -1,14 +1,17 @@
   .trans-nav {
     /* background: linear-gradient(45deg, #FF5733, #33FF57, #5733FF, #FF5733); */
-    background-size: 400% 400%;
+    /* background-size: 400% 400%; */
     /* animation: celebration 5s linear infinite; */
-    background-color: #dcdcdc;
+    background-image: linear-gradient(#191919, #272b2f 70%, #21282f);
     display: flex;
     justify-content: space-between;
+    margin: 0;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); 
+  align-items: center;
     padding: 10px;
     /* width: 100%; */
     position: relative;
-    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* @keyframes celebration {
@@ -27,7 +30,7 @@
   
   .leftitemtext {
     font-size: 2rem;
-    color: #2c2d31;
+    color: #c9c9c9;
   }
 
   .leftitemtext:hover {
@@ -50,5 +53,130 @@
   
   .nav-link:hover {
     color: #61be66; /* Link color on hover */
+  }
+  
+
+  .trans-nav-right {
+    display: flex;
+    /* align-items: flex-end; */
+    justify-content: space-evenly;
+  }
+  
+  .rightText{
+    font-size: 2rem;
+    color: #f2f2f2;
+  }
+
+  .ham {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #fff;
+    justify-content: space-around;
+    display: flex;
+    margin-top: 1.4rem;
+    margin-left: 1.2rem;
+  }
+  
+  .ham-dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 60px;
+    right: 10px;
+    background-color: #333; /* Change the background color as needed */
+    padding: 1.1rem;
+    border-radius: 8px;
+    /* box-shadow: 0 0 10px rgba(167, 167, 167, 0.5); */
+  }
+  
+  .ham-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ham-menu-list li {
+    margin-bottom: 10px;
+  }
+  
+  .ham-menu-list li a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+  }
+  
+  .ham-menu-list li a:hover {
+     color: orange;
+  }
+
+  .avatar1{
+     margin: auto;
+  }
+
+  .avatar-container {
+    position: relative;
+    margin-left: 1rem;
+  }
+  
+  .user-avatar {
+    /* background-color: #2196f3; Set the background color for the avatar */
+    /* color: #fff; Set the text color for the initials */
+    cursor: pointer;
+    justify-content: space-around;
+    border: 4px solid #fff;
+    border-radius: 50%,
+  }
+  
+  .avatar-menu {
+    background-color: #2e2e2e; /* Background color for the dropdown menu */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add a shadow for the menu */
+  }
+  
+  .avatar-menu-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .avatar-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .avatar-menu-list li {
+    margin-bottom: 10px;
+  }
+  
+  .avatar-menu-list li a {
+    text-decoration: none;
+    font-size: 1rem;
+    /* color: #333; Text color for menu items */
+    color: #fff;
+  }
+  
+  .avatar-menu-list li a:hover {
+    color: #f0f321; /* Text color on hover */
+  }
+  
+  /* Media query for screens with a maximum width of 768px */
+  @media (max-width: 768px) {
+    .user-nav-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .user-nav-right {
+      margin-top: 20px;
+    }
+  
+    .avatar-container {
+      margin-left: 10px; /* Adjust the margin for spacing */
+    }
   }
   

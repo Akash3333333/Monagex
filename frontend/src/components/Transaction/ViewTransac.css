@@ -1,17 +1,28 @@
-.view-container {
+.view-container{
     display: flex;
-    flex-direction: column; /* Set to row to make sidebar cover the left side */
-    height: 100vh;
-    /* width: 100%; */
+    flex-direction: column;
 }
 
 .view-content {
     display: flex;
-    flex: 0.4; /* Expand the main content to fill available space */
+    /* flex-direction:column; */
+    flex-direction: row;
     background: #fff;
 }
 
-/* Define styling for IncomeForm as needed */
+
+/* Define styling for  as needed */
+.view-inner{
+    display: flex;
+    flex-direction: column;
+}
+
+.view-sbar{
+    display: flex;
+    flex: 1;
+    background: linear-gradient(to right, #0f2027, rgb(0, 107, 153), #79bad5);
+    /* height:max-content; */
+}
 
 .footer {
     background-color: #1a1a1a;

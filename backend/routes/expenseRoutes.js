@@ -1,8 +1,11 @@
-// routes/expenseRoutes.js
-
+// expenseRoutes.js
 const express = require('express');
 const router = express.Router();
 const Expense = require('../models/Expense');
+
+const handleErrorResponse = (res, message) => {
+  res.status(500).json({ error: message });
+};
 
 // Create a new expense record
 router.post('/', async (req, res) => {
@@ -11,22 +14,19 @@ router.post('/', async (req, res) => {
     const savedExpense = await newExpense.save();
     res.status(201).json(savedExpense);
   } catch (error) {
-    res.status(400).json({ error: 'Failed to save expense data' });
+    handleErrorResponse(res, 'Failed to save expense data');
   }
 });
 
-// Retrieve all expense records
-
 // Retrieve all expense records for a specific user
-router.get('/', async (req, res) => {
+router.get('/user/:userId', async (req, res) => {
   try {
-    const userId = req.query.userId;
+    const userId = req.params.userId;
     const expenseRecords = await Expense.find({ user: userId });
     res.status(200).json(expenseRecords);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve expense data' });
+    handleErrorResponse(res, 'Failed to retrieve expense data');
   }
 });
-
 
 module.exports = router;

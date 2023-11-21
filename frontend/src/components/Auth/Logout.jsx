@@ -1,36 +1,66 @@
 import React, { useEffect } from 'react';
 import './Logout.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Logout = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+const Logout =  (props) => {
+  const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem('jwt');
-    // Make an HTTP request to log the user out
-    axios
-      .post('http://localhost:5000/auth/logout')
-      .then((response) => {
-        toast.success('Logout successful!', {
+    const logoutUser = async () => {
+      try {
+        const token = localStorage.getItem('jwt');
+         props.setCurrLoggedUserEmail("");
+        if (!token) {
+          // Token is missing, consider the user as already logged out
+          navigate('/login');
+          return;
+        }
+
+        // Make an HTTP request to log the user out
+        const response = await axios.post('http://localhost:5000/auth/logout', null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        localStorage.removeItem('jwt'); // Remove the token from localStorage
+
+        if (response.status === 200) {
+          toast.success('Logout successful!', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+            closeButton: false,
+            hideProgressBar: false,
+          });
+          navigate('/login');
+        } else {
+          // Handle unexpected response status
+          toast.error('Logout unsuccessful: Unexpected response status', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+            closeButton: false,
+            hideProgressBar: false,
+          });
+        }
+      } catch (error) {
+        // Handle errors
+        toast.error(`Logout unsuccessful: ${error.message}`, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
           closeButton: false,
           hideProgressBar: false,
-          // className: 'toast-message',
         });
-        navigate('/login'); // Use the navigate function to redirect to '/login'
-      })
-      .catch((error) => {
-        toast.error('Logout unsuccessful!', {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: false,
-        });
-      });
-  }); // Include navigate in the dependency array
+      }
+    };
+
+    logoutUser(); 
+     // Cleanup function
+    return () => {
+      // Additional cleanup, if needed
+    };
+  }, []); // Provide an empty dependency array
 
   return (
     <div className="logout-success-container">

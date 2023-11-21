@@ -12,12 +12,13 @@
   }
   
   /* Adjust the styling of the sidebar as needed */
-  .sidebar {
-    width: 100%; /* Set a fixed width for the sidebar */
-    background-color: #f0f0f0;
-    padding: 1rem;
-    height: 100vh;
-  }
+  .mg-sbar{
+    display: flex;
+    flex: 0.1;
+    /* flex-direction: column; */
+    background: linear-gradient(to right, #0f2027, rgb(0, 107, 153), #79bad5);
+    /* height:max-content; */
+}
   
   /* Adjust the styling of the group content as needed */
   .group-content {

@@ -6,8 +6,9 @@
 
 .expense-content {
     display: flex;
-    flex: 0.4;
-    background-image: url('../../../public/images/income.jpg');
+    flex: 1;
+    background-image: url('../../../public/images/income.jpg') ;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
