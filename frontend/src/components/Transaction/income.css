@@ -8,6 +8,7 @@
     display: flex;
     flex: 1;
     background-image: url('../../../public/images/income.jpg');
+background-position: 0%;
     background-size:cover;
     /* background-repeat: no-repeat; */
 }

@@ -25,6 +25,7 @@
     "jwt-decode": "^4.0.0",
     "material-icons": "^1.13.12",
     "moment": "^2.29.4",
+    "nodemailer": "^6.9.7",
     "nodemon": "^3.0.1",
     "nvm": "^0.0.4",
     "paper": "^0.12.17",

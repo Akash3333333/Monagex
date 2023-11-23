@@ -23,6 +23,7 @@ import MainNotifications from './components/User/MainNotifications';
 import Split from './components/User/Split';
 import Profile from './components/User/Profile';
 import SplitItem from './components/User/SplitItem';
+import { ThemeProvider, useTheme } from './ThemeContext';
 
 
 // const ProtectedRoute = ({ element, ...rest }) => {
@@ -33,6 +34,7 @@ import SplitItem from './components/User/SplitItem';
 
 function App() {
   
+  const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState('');
   const [currLoggrdUserEmail, setCurrLoggedUserEmail] = useState(''); 
   const [userId, setUserId] = useState('');
@@ -55,8 +57,7 @@ function App() {
           setUserId(response.data._id);
           setCurrLoggedUserEmail(response.data.user.email);
           // console.log(response.data.user._id);
-          console.log("app.js "+response.data.user.email);
-          console.log("cle "+currLoggrdUserEmail);
+  
           
         })
         .catch((error) => {
@@ -66,8 +67,11 @@ function App() {
   }, [currLoggrdUserEmail]);
   return (
     <Router>
-      <div>
+     <>
+     <ThemeProvider>
       {/* {user && <UserNav user={user} />} */}
+      {/* <div className={`App ${theme}`}> 
+      <button onClick={toggleTheme}>Toggle Theme</button> */}
         <Routes>
           <Route exact={true} path="/signup" element={<Signup />}  />
           <Route exact={true} path="/login" element={<Login />}  />
@@ -91,7 +95,8 @@ function App() {
           <Route path="/grp/:gid" element={<SplitItem />} />
         </Routes>
       <ToastContainer position="top-center" autoClose={2000} hideProgressBar   />
-      </div>
+      </ThemeProvider>
+      </>
     </Router>
   );
 }

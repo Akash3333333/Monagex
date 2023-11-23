@@ -24,7 +24,6 @@ function SplitGrp({ userId }) {
         }
 
         const data = await response.json();
-        console.log("Group Data:", data.group);
         setGroups(data.group);
       } catch (error) {
         console.error("Error fetching groups:", error);
@@ -41,7 +40,7 @@ function SplitGrp({ userId }) {
         <Link
           to={`/grp/${group._id}`}
           style={{ color: "darkblue" , marginTop:'1rem' , marginBottom:'1rem' }}
-          activeClassName="active-link"
+          activeclassName="active-link"
         >
           {group.groupName}
         </Link>

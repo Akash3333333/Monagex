@@ -69,7 +69,7 @@ const IncomeForm = ({ userId }) => {
     try {
       const response = await axios.post('http://localhost:5000/api/income', payload);
 
-      toast('Income data submitted successfully', {
+      toast(`Income data submitted successfully: Amount - ${response.data.amount}, Category - ${response.data.category}, Account Type - ${response.data.accountType}, Payer - ${response.data.payer}`, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,

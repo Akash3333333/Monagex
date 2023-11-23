@@ -64,8 +64,13 @@ const TransferForm = ({ userId }) => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/transfer', payload);
-      console.log(response);
-      toast('Transfer data submitted successfully', {
+      console.log(response.data);
+      const { user, currentDate, currentTime, amount, paymentFrom } = response.data;
+      toast(`Transfer data submitted successfully:
+      Date: ${currentDate}
+      // Time: ${currentTime}
+      Amount: ${amount}
+      Payment From: ${paymentFrom}`, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,

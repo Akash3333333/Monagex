@@ -20,14 +20,9 @@ const Notifications = (props) => {
     axios.get(`http://localhost:5000/api/friend-requests/getfriends`)
       .then((selectedUsers) =>
       {
-        // setUsers(selectedUsers.data;
         const arr=selectedUsers.data.data;
-        
-        // console.log('All');
-        console.log(arr);
-
+        // console.log(arr);
         setAllUser(arr);
-
         // console.log(arr);
 
         for(let i=0;i<arr.length;i++)
@@ -36,8 +31,7 @@ const Notifications = (props) => {
           console.log(arr[i].friends);
           if(arr[i].email===props.userEmail)
           {
-            // console.log('Hii Yo'+arr[i].friends)
-             console.log(arr[i].friends);
+            //  console.log(arr[i].friends);
              
             setFriend(()=>
             {
@@ -87,7 +81,7 @@ const Notifications = (props) => {
       toast.error("Error in sending Friend Request", { position: 'top-center' });
   }, [props.userEmail]);
 
-  console.log(request);
+  // console.log(request);
 
   return (
     <div className="friend-container">

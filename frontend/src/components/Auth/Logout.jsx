@@ -34,7 +34,7 @@ const Logout =  (props) => {
             closeButton: false,
             hideProgressBar: false,
           });
-          navigate('/login');
+          // navigate('/logout');
         } else {
           // Handle unexpected response status
           toast.error('Logout unsuccessful: Unexpected response status', {
@@ -65,8 +65,7 @@ const Logout =  (props) => {
   return (
     <div className="logout-success-container">
       <div className="logout-success-content">
-        <h1>Logout Result</h1>
-        <p>Logout successful!</p>
+        <h1>Logout Successful!</h1>
         <a href="/login">Go to Login</a>
       </div>
     </div>
