@@ -2,6 +2,7 @@
     /* padding: 20px; */
      display: flex;
      flex-direction: column;
+     /* background: url('../../../public/images/ff.jpg'); */
     flex-wrap:nowrap;
   }
   

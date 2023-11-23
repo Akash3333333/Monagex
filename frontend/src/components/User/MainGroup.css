@@ -8,7 +8,24 @@
   .mainGroup-content {
     display: flex;
     flex: 1; /* Use flex: 1 to make it take up the available space */
-    background: #fff;
+    background: #fdfdfd;
+  }
+
+  .friend{
+    display: flex;
+     padding: 2rem;
+    width: 50%;
+    /* margin: auto; */
+    justify-content: flex-start;
+  }
+
+  .grp1{
+    display: flex;
+    flex: 0.5;
+     padding: 2rem;
+    width: 50%; 
+    /* margin: auto; */
+    justify-content: flex-end;
   }
   
   /* Adjust the styling of the sidebar as needed */

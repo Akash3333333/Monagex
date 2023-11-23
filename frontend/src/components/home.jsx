@@ -1,5 +1,3 @@
-// Home.jsx
-
 import React, { useEffect, useState } from 'react';
 import Footer from './Footer';
 import UserNav from './User/UserNav';
@@ -10,10 +8,12 @@ import Records from './Transaction/Records';
 import axios from 'axios';
 import FriendList from './User/FriendList';
 import SplitGrp from './User/SplitGrp';
+import { useTheme } from '../ThemeContext'; // Update the path accordingly
 
 function Home() {
   const [userId, setUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const { theme } = useTheme(); // Access the theme from the context
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,7 +42,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="home-container">
+    <div className={`home-container ${theme}`}>
       <UserNav />
       <div className="home-content">
         <Welcome />

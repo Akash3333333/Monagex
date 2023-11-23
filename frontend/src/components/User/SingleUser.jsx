@@ -22,7 +22,7 @@ function SingleUser(props) {
   }
 
   const addUser = async (user1) => {
-    console.log(user1);
+    // console.log(user1);
     try {
       const response = await fetch('http://localhost:5000/api/friend-requests/addfriend', {
         method: 'PUT',
@@ -38,7 +38,6 @@ function SingleUser(props) {
       }
 
       const resData = await response.json();
-      console.log(resData.message);
       toast('Friend request sent successfully', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
@@ -59,7 +58,7 @@ function SingleUser(props) {
       });
     }
   }
-  console.log(props.friend);
+  // console.log(props.friend);
   return (
     <Grid item xs={12} sm={6} md={4} lg={3} key={props.friend.id}>
       <Card className="friend-card">

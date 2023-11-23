@@ -22,6 +22,7 @@ const Welcome = () => {
         <>
     <div className="welcome-page">
       <div className="blur-bg"></div>
+      <div className="black-overlay"></div> 
       <div className="top">
         <h1>Welcome to MonageX</h1>
         <p>Your one-stop destination for all transaction tracking.</p>

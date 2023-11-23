@@ -7,9 +7,10 @@
 .expense-content {
     display: flex;
     flex: 1;
-    background-image: url('../../../public/images/income.jpg') ;
+    background-image: url('../../../public/images/expense1.jpg') ;
+    background-position: 0%;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:cover;
 }
 
 /* Define styling for IncomeForm as needed */

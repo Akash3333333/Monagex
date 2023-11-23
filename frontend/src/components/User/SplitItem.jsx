@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SplitItem.css';
 import axios from 'axios';
@@ -47,14 +47,14 @@ function SplitItem() {
         },
         body: JSON.stringify({ amount: amount, id: userId }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to split amount');
       }
-
+  
       const data = await response.json();
       console.log(data.message);
-      toast('Split successful',{
+      toast('Split successful', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,
@@ -63,8 +63,8 @@ function SplitItem() {
       // Redirect or navigate on successful split
       navigate('/split');
     } catch (error) {
-    //   console.error('Error splitting amount:', error);
-      toast.error('Error splitting amount',{
+      console.error('Error splitting amount:', error);
+      toast.error('Error splitting amount', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,
@@ -72,7 +72,6 @@ function SplitItem() {
       });
     }
   };
-
   const handleSettle = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/split/settle/${id}`, {
@@ -82,24 +81,25 @@ function SplitItem() {
         },
         body: JSON.stringify({ amount: amount, id: userId }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to settle amount');
       }
-
+  
       const data = await response.json();
       console.log(data.message);
-      toast('Settle successful',{
+      toast('Settle successful', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,
         hideProgressBar: false,
       });
+  
       // Redirect or navigate on successful settle
       navigate('/split');
     } catch (error) {
-    //   console.error('Error settling amount:', error);
-      toast.error('Error settling amount',{
+      console.error('Error settling amount:', error);
+      toast.error('Error settling amount', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,
@@ -107,6 +107,7 @@ function SplitItem() {
       });
     }
   };
+  
 
   useEffect(() => {
     const fetchMember = async () => {

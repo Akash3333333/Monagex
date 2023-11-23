@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './UserNav.css';
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import Switch from '@mui/material/Switch';
 import axios from 'axios';
+import { useTheme } from '../../ThemeContext'; // Update the path accordingly
 import './UserNav.css';
 
 function UserNav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState({});
+  const { theme, toggleTheme } = useTheme();
+  const handleToggleTheme = () => {
+    console.log('Toggle Theme');
+    toggleTheme();
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('jwt');
@@ -33,10 +39,6 @@ function UserNav() {
     }
   }, []);
 
-  useEffect(() => {
-    // console.log("unav user:", user);
-  }, [user]); // Log user information when it changes
-
   const openAvatarMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,26 +48,26 @@ function UserNav() {
   };
 
   return (
-    <div className="user-nav">
+    <div className={`user-nav ${theme}`}>
       <div className="user-nav-container">
         <Link className="brand" to="/">
-          Monagex
+          MonageX
         </Link>
       </div>
       <div className="user-nav-right">
-          <div className="user">
+        <div className="user">
           <ul className="user-menu-list">
-                <li>
-                  <Link to="/" >
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/income" >
-                  Record Transaction
-                  </Link>
-                </li>
-                <li>
+            <li>
+              <Link to="/">
+                Dashboard
+              </Link>
+            </li>
+            <li>
+              <Link to="/income">
+                Record Transaction
+              </Link>
+            </li>
+            <li>
                   <Link to="/view" >
                   View Transaction
                   </Link>
@@ -85,19 +87,38 @@ function UserNav() {
                   Split Expenses
                   </Link>
                 </li>
-              </ul>
-          </div>
-          <div className="avatar-container">
+          </ul>
+        </div>
+        {/* <div className="theme-toggle"   style={{  marginTop:'0.7rem'}}>
+          <Switch
+            checked={theme === 'dark'}
+            onChange={handleToggleTheme}
+          
+            color="default"
+            inputProps={{ 'aria-label': 'toggle theme' }}
+          /> */}
+        {/* </div> */}
+        <div className="avatar-container">
           <Avatar
             onClick={openAvatarMenu}
-            className="user-avatar">
-              {user.profilePhoto ? (
-                <img src={`http://localhost:5000/uploads/${user.profilePhoto}`} alt="Profile"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' , border: '4px solid #fff',
-                borderRadius: '50%' }} />
-              ) : (
-                <img src="/default-avatar.png" alt="Profile" />
-              )}
+            className="user-avatar"
+          >
+            {user.profilePhoto ? (
+              <img
+                src={`http://localhost:5000/uploads/${user.profilePhoto}`}
+                alt="Profile"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  border: '4px solid #fff',
+                  borderRadius: '50%',
+                }}
+              />
+            ) : (
+              <img src="/images/noAvatar.png" alt="Profile" style={{  width: '100%',
+              height: '100%'}} />
+            )}
           </Avatar>
           <Popover
             open={Boolean(anchorEl)}

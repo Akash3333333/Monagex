@@ -7,7 +7,7 @@
 .transfer-content {
     display: flex;
     flex: 1;
-    background-image: url('../../../public/images/income.jpg');
+    background-image: url('../../../public/images/transfer.jpg');
     background-size: cover;
 }
 

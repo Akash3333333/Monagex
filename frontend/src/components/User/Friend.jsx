@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './Friend.css';
 
 const Friend = ({ userEmail }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -11,7 +12,8 @@ const Friend = ({ userEmail }) => {
     const token = localStorage.getItem('jwt');
 
     if (token) {
-      axios.get('http://localhost:5000/api/user', {
+      axios
+        .get('http://localhost:5000/api/user', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -26,22 +28,33 @@ const Friend = ({ userEmail }) => {
   }, [userEmail]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/friend-requests/getfriends')
+    axios
+      .get('http://localhost:5000/api/friend-requests/getfriends')
       .then((response) => {
         const myUsers = response.data.data;
         const currentUser = myUsers.find((user) => user.email === userEmail);
 
         if (currentUser) {
-          setSelectedUsers(currentUser.friends.map((friend) => ({ ...friend, selected: false })));
+          setSelectedUsers(
+            currentUser.friends.map((friend) => ({ ...friend, selected: false }))
+          );
         }
       })
-      .catch(error => console.error('Error fetching users:', error));
+      .catch((error) => console.error('Error fetching users:', error));
   }, [userEmail]);
 
   const handleAddToGroup = (friendId) => {
-    setSelectedUsers((prevUsers) => prevUsers.map((friend) =>
-      friend._id === friendId ? { ...friend, selected: !friend.selected } : friend
-    ));
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((friend) =>
+        friend._id === friendId ? { ...friend, selected: !friend.selected } : friend
+      )
+    );
+  };
+
+  const resetSelectedUsers = () => {
+    setSelectedUsers((prevUsers) =>
+      prevUsers.map((friend) => ({ ...friend, selected: false }))
+    );
   };
 
   const handleCreateGroup = async () => {
@@ -51,7 +64,9 @@ const Friend = ({ userEmail }) => {
       return;
     }
 
-    const selectedUserIds = selectedUsers.filter((friend) => friend.selected).map((friend) => friend._id);
+    const selectedUserIds = selectedUsers
+      .filter((friend) => friend.selected)
+      .map((friend) => friend._id);
 
     try {
       const response = await axios.post('http://localhost:5000/groups/create', {
@@ -59,20 +74,24 @@ const Friend = ({ userEmail }) => {
         members: [...selectedUserIds, userId],
       });
 
-      toast("Group Created Successfully", {
+      toast('Group Created Successfully', {
         position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: false,
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: false,
       });
+
+      // Toggle the selected state after successful group creation
+      resetSelectedUsers();
+
       // You can redirect to the group page or update the UI accordingly
     } catch (error) {
       console.error('Error creating group:', error);
-      toast.error('Error creating group',{
+      toast.error('Error creating group', {
         position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: false,
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: false,
       });
     }
   };
@@ -86,14 +105,36 @@ const Friend = ({ userEmail }) => {
             <div>
               <p>{friend.username}</p>
               {friend.profilePhoto ? (
-              <img src={`http://localhost:5000/uploads/${friend.profilePhoto}`} alt="Profile"
-                style={{ width: '100px', height: '100px', objectFit: 'cover' , border: '4px solid #2c2d31',
-                borderRadius: '10%' }} />
-                ) : (
-                  <img src="/images/noAvatar.png" alt="Profile" style={{ width: '100px', height: '100px', objectFit: 'cover' , border: '4px solid #2c2d31',
-                  borderRadius: '10%' }} />
-                )}
-              <button onClick={() => handleAddToGroup(friend._id)}>+</button>
+                <img
+                  src={`http://localhost:5000/uploads/${friend.profilePhoto}`}
+                  alt="Profile"
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    objectFit: 'cover',
+                    border: '4px solid #2c2d31',
+                    borderRadius: '10%',
+                  }}
+                />
+              ) : (
+                <img
+                  src="/images/noAvatar.png"
+                  alt="Profile"
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                    objectFit: 'cover',
+                    border: '4px solid #2c2d31',
+                    borderRadius: '10%',
+                  }}
+                />
+              )}
+              <button
+                onClick={() => handleAddToGroup(friend._id)}
+                style={{ backgroundColor: '#2c2d31', color: '#fdfdfd' }}
+              >
+                {friend.selected ? 'Remove' : 'Add +'}
+              </button>
             </div>
           </li>
         ))}
