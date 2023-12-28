@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# MonageX
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MonageX is a robust money management application designed to simplify your financial life. With a focus on user-friendly features and comprehensive functionality, it empowers users to take control of their finances effortlessly.
 
-## Available Scripts
+## Key Features
 
-In the project directory, you can run:
+- **Expense Tracking:** Keep a meticulous record of your expenses, categorize them, and gain insights into your spending habits.
+- **Income Recording:** Seamlessly record your various income sources for a complete financial overview.
+- **Seamless Fund Transfers:** Transfer funds seamlessly between accounts to manage your finances with ease.
+- **Intuitive Graph Displays:** Visualize your financial data through intuitive graphs, providing a clear picture of your financial health.
+- **Group Collaboration:** Collaborate with friends and family through group features, making shared expenses and financial planning a breeze.
+- **Friend Requests:** Connect with friends, send and accept requests to enhance your collaborative financial experience.
+- **Notifications:** Stay informed with automated notifications for transactions, group activities, and important financial updates.
 
-### `npm start`
+## Tech Stacks
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- MongoDB
+- ExpressJs
+- ReactJs
+- NodeJs
+- Material-UI
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Different Pages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### Home Page
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Image 8](https://github.com/Hardik-111/Monagex/assets/89783619/b07a6a1f-5f82-4147-824c-660f86e08b44)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Profile Page
 
-### `npm run eject`
+![Image 9](https://github.com/Hardik-111/Monagex/assets/89783619/c3675df9-5632-4d7d-bb9c-ada91cd1c962)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Record Transaction(Income Page)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Image 6](https://github.com/Hardik-111/Monagex/assets/89783619/a880a64f-5e99-438b-8f23-9a5f3da343b3)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+### Record Transaction(Expense Page)
+![Image 3](https://github.com/Hardik-111/Monagex/assets/89783619/987fa231-6e39-4d16-9f22-3b800d5bba3e)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Record Transaction(Transfer Page)
+![Image 4](https://github.com/Hardik-111/Monagex/assets/89783619/0095904c-423f-4dc7-bf00-dd9200ed302e)
 
-### Code Splitting
+### View Transaction Page
+![Image 5](https://github.com/Hardik-111/Monagex/assets/89783619/ec55d3b9-029c-4886-a1e4-bca6b6658546)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Group Page
+![Image 12](https://github.com/Hardik-111/Monagex/assets/89783619/0f5dabff-086d-4a26-883d-e45c202f41dc)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Notifications Page
+![Image 2](https://github.com/Hardik-111/Monagex/assets/89783619/f5715c58-bfef-428b-b073-90cb608398bd)
+![Image 1](https://github.com/Hardik-111/Monagex/assets/89783619/36390e12-2c41-4594-b755-86ab4bd213aa)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Split & Settle Page
+![Image 11](https://github.com/Hardik-111/Monagex/assets/89783619/a939b12c-014f-44a2-83f2-8bafe4a00e74)
+![Image 10](https://github.com/Hardik-111/Monagex/assets/89783619/e68dded5-f5d9-4c1c-a4d0-516d66e1572d)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
