@@ -48,7 +48,7 @@ function TransNav() {
   return (
     <nav className="trans-nav">
       <div className="leftitems">
-        <Link to="/" className="leftitemtext">
+        <Link to="/home" className="leftitemtext">
           MonageX
         </Link>
       </div>
@@ -79,7 +79,7 @@ function TransNav() {
             <div className="ham-dropdown">
               <ul className="ham-menu-list">
                 <li>
-                  <Link to="/" onClick={toggleDropdown}>
+                  <Link to="/home" onClick={toggleDropdown}>
                     Dashboard
                   </Link>
                 </li>

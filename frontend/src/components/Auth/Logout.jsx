@@ -14,7 +14,7 @@ const Logout =  (props) => {
          props.setCurrLoggedUserEmail("");
         if (!token) {
           // Token is missing, consider the user as already logged out
-          navigate('/login');
+          navigate('/');
           return;
         }
 

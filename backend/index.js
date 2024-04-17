@@ -52,7 +52,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //   },
 // });
 
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' })); 
+app.use(cors()); 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -84,7 +84,7 @@ app.get('/getcurruser', passport.authenticate('jwt', { session: false }), async 
       res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
-    console.error('Error in /getcurruser:', error);
+    console.error('Error in /getcurruser:', error);s
     res.status(500).json({ message: 'Internal server error' });
   }
 });

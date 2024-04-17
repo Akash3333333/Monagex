@@ -1,107 +1,58 @@
- /* Welcome.css */
+/* Welcome.css */
 
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', Arial, Helvetica, sans-serif;
 }
 
 .welcome-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  /* height: 85vh; */
-  color: rgb(249, 249, 249);
-  font-size: 2rem;
-  /* background: url('../../public/images/welcome.jpg') center/cover no-repeat; */
-  position: relative;
-  overflow: hidden;
-}
-
-.blur-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: url('../../public/images/x4.jpg') center/cover no-repeat;
-  filter: blur(7px);
-  /* z-index: -1; */
-}
-
-.black-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.522); /* Adjust the alpha value to control transparency */
-  z-index: -1;
-}
-
-.demo-heading{
-  display: flex;
-  font-size: 1.4rem;
-  font-weight: 600;
-  align-items: flex-start;
-  margin: auto;
-}
-
-.top {
-  text-align: center;
-  margin: auto;
-  padding: 2rem;
+  align-items: center;
   height: 100vh;
-  z-index: 1;
-}
-.top h1{
-  margin-top: 15rem;
-}
-
-.video-container{
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.slideshow-container {
-  width: 100%;
-  overflow: hidden;
   position: relative;
 }
 
-.slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-  min-width: 100%;
-  box-sizing: border-box;
-}
-
-.slide img {
-  width: 100%;
-}
-
-.prev,
-.next {
+.background {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: rgb(0, 0, 0);
-  background: none;
-  border: none;
-  cursor: pointer;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url('../../public/images/reg1.jpg') center/cover no-repeat;
+  filter: blur(8px);
+}
+
+.content {
+  text-align: center;
+  color: #fff;
   z-index: 1;
 }
 
-.prev {
-  left: 20px;
+.content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-.next {
-  right: 20px;
+.content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.video-container {
+  width: 80%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.demo-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+video {
+  width: 100%;
+  height: auto;
+  display: block;
 }

@@ -2,11 +2,35 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Records.css'; // Import your CSS file for styling
 
-const Records = ({ userId }) => {
+const Records = () => {
   const [loading, setLoading] = useState(true);
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
   const [transferData, setTransferData] = useState([]);
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('jwt');
+      try {
+        const response = await axios.get('http://localhost:5000/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        if (response.data && response.data.user && response.data.user._id) {
+          setUserId(response.data.user._id);
+        } else {
+          console.error('User ID not available in response:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async (category) => {
@@ -71,8 +95,8 @@ const Records = ({ userId }) => {
       <>
       <div className="records-container">
     <div className="water-flow"> </div>
-        <div className="innercontainer">
         <p className="page-title">Your Financial Records</p>
+        <div className="inner-container">
 
         <div className="income">
        {renderData(incomeData, 'Income')}

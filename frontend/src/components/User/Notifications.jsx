@@ -28,7 +28,7 @@ const Notifications = (props) => {
         for(let i=0;i<arr.length;i++)
         {
           // console.log(arr[i].email +" "+props.userEmail);
-          console.log(arr[i].friends);
+          // console.log(arr[i].friends);
           if(arr[i].email===props.userEmail)
           {
             //  console.log(arr[i].friends);
@@ -42,7 +42,7 @@ const Notifications = (props) => {
                 
                 for(let j=0;j<selectedUsers.data.data.length;j++)
                 {
-                  console.log(selectedUsers.data.data[j]._id);
+                  // console.log(selectedUsers.data.data[j]._id);
                   if(selectedUsers.data.data[j]._id===arr[i].friends[k])
                   {
                     nums.push(selectedUsers.data.data[j]);

@@ -40,9 +40,6 @@ const ViewTransac = () => {
         <div className="view-container">
             <UserNav/>
             <div className="view-content">
-              {/* <div className="view-sbar">
-                <Sidebar   />
-              </div> */}
                 <div className="view-inner">
                   <Graph userId={userId} />
                   <Records userId={userId} />

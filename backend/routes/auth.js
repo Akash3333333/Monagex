@@ -46,16 +46,16 @@ router.post('/signup', async (req, res) => {
 // Login route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
+  
   // Validate user credentials (you should implement your own logic here)
   const user = await User.findOne({ email });
 
   if (user && bcrypt.compareSync(password, user.password)) {
     // User is valid, generate and send a JWT token
     const token = jwt.sign({ email: user.email, userId: user._id }, jwtSecretKey, { expiresIn: '1h' });
-
+    const expiresIn = '1h';
     res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Set the JWT token as a cookie
-    res.json({ token , user });
+    res.json({ token , user, expiresIn });
   } else {
     // Invalid credentials
     res.status(401).json({ message: 'Invalid credentials' });
@@ -63,56 +63,161 @@ router.post('/login', async (req, res) => {
 });
 
 
+// Define the generateResetToken function
+function generateResetToken(email) {
+  return jwt.sign({ email }, process.env.JWT_SECRET_KEY, { expiresIn: '1hr' });
+}
+async function saveResetTokenToUser(user, resetToken) {
+  user.resetToken = resetToken;
+  await user.save();
+}
+
 // Forgot Password route
 router.post('/forget-password', async (req, res) => {
+
   const { email } = req.body;
+  console.log("fp - "+email);
 
   try {
     const user = await User.findOne({ email });
-
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      // If user doesn't exist, send the reset email to Mailtrap
+      await sendResetEmailToMailtrap(email);
+      return res.status(404).json({ message: 'If an account with this email exists, a password reset link has been sent to it. Please check your inbox.' });
     }
 
-    // Generate a unique reset token
-    const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '15m' });
+    const resetToken = generateResetToken(user.email);
 
-    // Save the reset token to the user in the database
-    user.resetToken = resetToken;
-    await user.save();
+    await saveResetTokenToUser(user, resetToken);
 
-    // Send a reset email with a link containing the reset token
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    await sendResetEmailToUser(email, resetToken);
 
-    const mailOptions = {
-      from: process.env.SMTP_USER,
-      to: email,
-      subject: 'Password Reset',
-      html: `<p>Click <a href="http://localhost:3000/reset-password/${resetToken}">here</a> to reset your password.</p>`,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Failed to send reset email' });
-      }
-      console.log('Email sent: ' + info.response);
-      res.json({ message: 'Password reset email sent' });
-    });
+    res.json({ message: 'If an account with this email exists, a password reset link has been sent to it. Please check your inbox.' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'An error occurred while processing your request. Please try again later.' });
   }
 });
 
+async function sendResetEmailToUser(email, resetToken) {
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    secure: true,
+    auth: {
+      user: process.env.SMTP_USER, // Your Gmail address
+      pass: process.env.SMTP_PASS, // Your Gmail password or generated app-specific password
+    },
+  });
 
+  const mailOptions = {
+    from: process.env.SMTP_USER, // Your Gmail address
+    to: email,
+    subject: 'Reset Your Password',
+    html: `
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Password Reset</title>
+      <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f4f4f4;
+        }
+        .container {
+          max-width: 100%;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #ffffff;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+        .logo img {
+          width: 150px;
+          height: auto;
+        }
+        .content {
+          text-align: justify;
+          font-size: 16px;
+          line-height: 1.6;
+          color: #2c2d31;
+        }
+        .btn {
+          display: inline-block;
+          padding: 12px 24px;
+          background-color: #2c2d31;
+          color: #ffffff;
+          text-decoration: none;
+          border-radius: 5px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="logo">
+          <img src="cid:logo" alt="Logo">
+        </div>
+        <div class="content">
+          <p>Hello,</p>
+          <p>You have requested to reset your password. Please click the button below to reset your password:</p>
+          <p style="text-align: center; color:'#fff"><a class="btn" style="color:#fff;" href="http://localhost:3000/reset-password/${resetToken}">Reset Password</a></p>
+          <p>If you did not request this, you can safely ignore this email.</p>
+          <p>Regards,<br>MonageX Team</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `,
+  attachments: [{
+    filename: 'vlogo1.jpg',
+    path: 'public/images/vlogo1.jpg',
+    cid: 'logo' // same cid value as in the src attribute of the img tag
+  }]
+};
+
+  await transporter.sendMail(mailOptions);
+}
+
+
+async function sendResetEmailToMailtrap(email) {
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: true,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.MAILTRAP_USER,
+    to: email,
+    subject: 'Password Reset (Fake)',
+    html: '<p>This email was sent to a non-existing user for password reset.</p>',
+  };
+
+  await transporter.sendMail(mailOptions);
+
+
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        reject(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+        resolve();
+      }
+    });
+  });
+}
 
 
 // Reset Password route
@@ -161,9 +266,6 @@ router.post('/logout', async (req, res) => {
     
     // Validate the token
     const decoded = jwt.verify(token, jwtSecretKey); // Replace with your actual secret key
-
-    // Continue with logout logic (remove token, etc.)
-    // ...
 
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {

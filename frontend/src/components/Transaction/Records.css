@@ -1,73 +1,99 @@
+/* Records.css */
+
 .records-container {
-    margin-left: 2rem;
-    /* align-items: center; */
-    /* position: relative; */
-  }
+  margin-left: 2rem;
+}
+
+
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.records-categories {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inner-container{
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.records-category {
+  flex: 1; 
+  margin-right: 20px; 
+  /* background: linear-gradient(to right, #6441a5, #2a0845); */
+  /* background: linear-gradient(to right, #360033, #0b8793); */
+  /* background: linear-gradient(to right, rgba(15, 12, 41, 1.1), rgba(48, 43, 99, 0.8), rgba(36, 36, 62, 1.2)); */
+  background: linear-gradient(to right, #000428, #004e92);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
   
-  .water-flow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, #0f2027, rgb(0, 107, 153), #79bad5);
-    opacity: 0.6;
-    z-index: -1;
-    animation: flow 10s linear infinite reverse;
+  color: #fff; /* Adjust text color to white for better contrast */
+  padding: 20px;
+  border-radius: 10px; 
+}
+/*  */
+
+
+
+
+.records-category.loading .loading-spinner {
+  display: block;
+}
+
+.loading-spinner {
+  display: none;
+  text-align: center;
+}
+
+.record-item {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.record-date {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.record-note {
+  font-weight: bold;
+}
+
+.record-amount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff; /* Set text color */
+}
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
+  .records-container {
+    margin-left: 0;
+    padding: 10px;
   }
-  
-  @keyframes flow {
-    0% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 100% 0;
-    }
-  }
-  
-  .category-title {
+
+  .page-title {
     font-size: 1.5rem;
-    margin-bottom: 10px;
-    justify-content: space-between;
-    padding: 5rem;
   }
-  
-  .page-title{
-      /* margin: auto; */
-      font-size: 5rem;
-      font-weight: bold;
-      align-items:center;
-      justify-content: space-around;
+
+  .records-categories {
+    flex-direction: column;
+  }
+
+  .records-category {
+    width: 100%;
   }
 
   .record-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    padding: 5rem;
+    padding: 5px;
   }
-  
-  .record-note {
-    font-weight: bold;
-  }
-  
-  .loading-spinner {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
 
-.innercontainer{
-    display: flex;
+  .record-amount {
+    font-size: 1rem;
+  }
 }
-
-  .income{
-    display: flex;
-  }
-  .expense{
-    display: flex;
-  }
-  .transfer{
-    display: flex;
-  }

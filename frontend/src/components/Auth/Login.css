@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('/public/images/pic1.jpg');
+  background: url('/public/images/log2.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 

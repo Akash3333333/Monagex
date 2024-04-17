@@ -56,6 +56,13 @@ const Signup = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      // If Enter key is pressed, simulate a click on the register button
+      handleSignup();
+    }
+  };
+
   function PassHandler(e) {
     const x = e.target.value;
     setPassword(x);
@@ -111,6 +118,7 @@ const Signup = () => {
             placeholder="Confirm Password"
             value={cpassword}
             onChange={CheckHandler}
+            onKeyDown={handleKeyDown}
             required="true"
           />
           {passwordMatched ? (

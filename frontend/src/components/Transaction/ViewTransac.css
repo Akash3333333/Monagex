@@ -1,27 +1,24 @@
-.view-container{
+/* ViewTransac.css */
+.view-container {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4; /* Set background color for the entire container */
 }
 
 .view-content {
     display: flex;
-    /* flex-direction:column; */
-    flex-direction: row;
+    flex: 1;
     background: #fff;
+    overflow-x: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow to the content */
 }
 
-
-/* Define styling for  as needed */
-.view-inner{
+.view-inner {
     display: flex;
     flex-direction: column;
-}
-
-.view-sbar{
-    display: flex;
     flex: 1;
-    background: linear-gradient(to right, #0f2027, rgb(0, 107, 153), #79bad5);
-    /* height:max-content; */
+    padding: 20px;
 }
 
 .footer {
@@ -30,16 +27,21 @@
     padding: 10px 0;
     text-align: center;
     font-family: Arial, sans-serif;
-    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
 }
-
-/* Define styling for Footer content as needed */
 
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
     .view-container {
-        flex-direction: column; /* Stack content in the container for smaller screens */
+        flex-direction: column;
+    }
+}
+/* ViewTransac.css */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .view-inner {
+        padding: 15px; /* Adjust padding for smaller screens */
     }
 }
 
-/* Add more media queries for different screen sizes if needed */

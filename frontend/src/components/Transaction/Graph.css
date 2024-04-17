@@ -13,8 +13,10 @@
     text-align: center;
     padding: 1rem;
     border: 2px solid #fff;
+    /* color: #fff; */
     border-radius: 10px;
     /* position: relative; */
+    /* background: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
     overflow: hidden;
   }
   

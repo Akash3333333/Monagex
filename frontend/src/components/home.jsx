@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import Footer from './Footer';
-import UserNav from './User/UserNav';
-import './home.css';
-import Welcome from './Welcome';
-import Graph from './Transaction/Graph';
-import Records from './Transaction/Records';
 import axios from 'axios';
+import { Container, Grid, Typography } from '@mui/material';
+import UserNav from './User/UserNav';
+import Footer from './Footer';
 import FriendList from './User/FriendList';
 import SplitGrp from './User/SplitGrp';
-import { useTheme } from '../ThemeContext'; // Update the path accordingly
+import Graph from './Transaction/Graph';
+import Records from './Transaction/Records';
+import './home.css';
+// import './home.scss';
 
-function Home() {
+const Home = () => {
   const [userId, setUserId] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const { theme } = useTheme(); // Access the theme from the context
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,29 +41,58 @@ function Home() {
   }, []);
 
   return (
-    <div className={`home-container ${theme}`}>
+    <div className="home-container">
       <UserNav />
-      <div className="home-content">
-        <Welcome />
-
-        <div className="bottom-items">
-          <div className="trans">
+{/*      
+      <div class="ocean">
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div> */}
+      <div className="welcome-section">
+        <Container>
+        <h1 className='welcome-section-h1'>
+          Welcome to MonageX
+        </h1>
+        <Typography variant="h5" gutterBottom>
+          Your one-stop destination for all transaction tracking.
+        </Typography>
+        </Container>
+      </div>
+      <Container className="mid-portion">
+        <Grid container spacing={3}>
+          <Grid item xs={12} style={{ color:'white' , margin:'0' }}>
             <Graph userId={userId} />
+          </Grid>
+          <Grid item xs={12}>
             <Records userId={userId} />
-          </div>
-          <div className="grp">
-            <div className="friend">
+          </Grid>
+        </Grid>
+      </Container>
+      <Container className="bottom-portion">
+     
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={6}>
+            <div className="friend1">
+              <Typography variant="h5" gutterBottom>
+                Friends
+              </Typography>
               <FriendList userEmail={userEmail} />
             </div>
-            <div className="splitgrp">
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <div className="group1">
+              <Typography variant="h5" gutterBottom>
+                Groups
+              </Typography>
               <SplitGrp userId={userId} />
             </div>
-          </div>
-        </div>
-      </div>
+          </Grid>
+        </Grid>
+      </Container>
       <Footer />
     </div>
   );
-}
+};
 
 export default Home;

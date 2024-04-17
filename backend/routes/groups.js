@@ -30,19 +30,23 @@ router.post('/create', async (req, res) => {
     await group.save();
 
     // Push the groupId into the groups array of each member
-    for (const memberId of members) {
-      const user = await User.findById(memberId);
+   // and groupNames field of each member
+for (const memberId of members) {
+  const user = await User.findById(memberId);
 
-      if (user) {
-        user.groups.push({
-          group: group._id,
-          owe: 0,
-          lent: 0,
-        });
+  if (user) {
+    // Add the groupName to the groupNames array
+    user.groupNames.push(groupName);
 
-        await user.save();
-      }
-    }
+    user.groups.push({
+      group: group._id,
+      owe: 0,
+      lent: 0,
+    });
+
+    await user.save();
+  }
+}
 
     res.json({ message: 'Group created successfully', group });
   } catch (error) {

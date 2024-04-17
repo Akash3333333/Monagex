@@ -45,6 +45,11 @@ const useStyles = makeStyles((theme) => ({
     color: 'black',
     transition: 'background 0.3s ease',
   },
+  groupList: {
+    listStyle: 'none',
+    padding: 0,
+    margin: '0.5rem 0',
+  },  
 }));
 
 export default useStyles;

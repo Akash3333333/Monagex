@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ArcElement, Chart } from 'chart.js';
-import { useTheme } from '../../ThemeContext'; // Update the path accordingly
 import './Graph.css';
 
 Chart.register(ArcElement);
@@ -10,7 +9,7 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      display: false,
+      display: true,
     },
     tooltip: {
       callbacks: {
@@ -29,7 +28,6 @@ const options = {
 };
 
 const Graph = ({ userId }) => {
-  const { theme } = useTheme();
 
   const [loading, setLoading] = useState(true);
   const [incomeData, setIncomeData] = useState([]);
@@ -75,7 +73,7 @@ const Graph = ({ userId }) => {
   }, [userId]);
 
   const renderDoughnutChart = (chartTitle, data, backgroundColor) => (
-    <div className={`chart ${theme} ${loading ? 'loading' : ''}`}>
+    <div className={`chart ${loading ? 'loading' : ''}`}>
       <h2 className="chart-title">{chartTitle}</h2>
       {loading ? (
         <div className="loading-spinner">Loading...</div>

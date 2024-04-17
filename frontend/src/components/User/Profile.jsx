@@ -75,6 +75,18 @@ const Profile = () => {
     }
   };
 
+  // Function to format date in "dd Month yyyy" format
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-IN', options);
+  };
+
+  // Function to format time in IST
+  const formatTime = (dateString) => {
+    const options = { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Kolkata' };
+    return new Date(dateString).toLocaleTimeString('en-IN', options);
+  };
+
   return (
     <div className={classes.pg}> 
      <ToastContainer />
@@ -146,19 +158,30 @@ const Profile = () => {
             <Grid item xs={12} sm={6}>
               <Typography variant="body1" className={classes.typo}>
                 <strong>Last Updated At:</strong>{' '}
-                {user ? user.updatedAt : ''}
+                {user ? formatDate(user.updatedAt) : ''}<br/>
+                {user ? formatTime(user.updatedAt) : ''}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Typography variant="body1" className={classes.typo}>
-                <strong>Groups:</strong> {user ? user.groupNames : ''}
+                <strong>Groups:</strong>
+                <br />
+                {user && user.groupNames && user.groupNames.length > 0 ? (
+                  <ul className={classes.groupList}>
+                    {user.groupNames.map((groupName, index) => (
+                      <li key={index}>{groupName}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <span>No groups</span>
+                )}
               </Typography>
             </Grid>
           </Grid>
           <Button
             variant="outlined"
             component={Link}
-            to="/"
+            to="/home"
             className={classes.goBackButton}
           >
             Go Back

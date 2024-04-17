@@ -1,32 +1,26 @@
-/* Footer.css */
 .sundar-footer {
   background-color: #1a1a1a;
   color: #fff;
   padding: 10px 0;
   text-align: center;
   font-family: Arial, sans-serif;
-  position: relative;
-  display: flex;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
-  align-items: center;
-  margin-top: auto; /* This ensures the footer stays at the bottom */
-  width: 100%; /* Occupy full width */
+  position: fixed; /* Fixed position to keep it at the bottom */
   bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's above other content */
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   max-width: 1200px;
-  margin: auto;
-  padding: 0.1rem;
+  margin: 0 auto; /* Center the content horizontally */
+  padding: 0 20px; /* Add padding for better spacing */
 }
 
 .footer-content p {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.2rem; /* Adjust font size */
 }
 
 ul {
@@ -53,3 +47,4 @@ a {
 a:hover {
   color: #ff9900;
 }
+

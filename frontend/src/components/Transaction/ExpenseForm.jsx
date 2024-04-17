@@ -66,7 +66,7 @@ const ExpenseForm = ({ userId }) => {
     try {
       const response = await axios.post('http://localhost:5000/api/expense', payload);
       console.log(response);
-      toast(  `Expense data submitted successfully: Amount - ${response.data.amount}, Category - ${response.data.category}, Payment Method - ${response.data.paymentMethod}, Payee - ${response.data.payee}`, {
+      toast(  `Expense data submitted successfully`, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeButton: false,

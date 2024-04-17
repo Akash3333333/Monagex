@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 router.get('/user/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
-    // console.log('userId:', userId); // Log the userId for debugging
+    // console.log('userId:', userId); 
     const incomeRecords = await Income.find({ user: userId });
     // console.log('incomeRecords:', incomeRecords); // Log the retrieved records for debugging
     res.status(200).json(incomeRecords);

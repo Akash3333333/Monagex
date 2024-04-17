@@ -24,7 +24,7 @@ function SplitItem() {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        
         if (response.data && response.data.user && response.data.user._id) {
           setUserId(response.data.user._id);
         } else {
@@ -47,13 +47,14 @@ function SplitItem() {
         },
         body: JSON.stringify({ amount: amount, id: userId }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to split amount');
       }
-  
+
       const data = await response.json();
-      console.log(data.message);
+      if(data.message==="Successfully updated owe and lent fields for all members of the group"){
+      // console.log(data.message);
       toast('Split successful', {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
@@ -62,7 +63,18 @@ function SplitItem() {
       });
       // Redirect or navigate on successful split
       navigate('/split');
-    } catch (error) {
+    } 
+  
+  else{
+    toast.error(data.message, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+      closeButton: false,
+      hideProgressBar: false,
+    });
+   }
+  } 
+  catch (error) {
       console.error('Error splitting amount:', error);
       toast.error('Error splitting amount', {
         position: toast.POSITION.TOP_CENTER,
@@ -72,6 +84,7 @@ function SplitItem() {
       });
     }
   };
+
   const handleSettle = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/split/settle/${id}`, {
@@ -81,22 +94,33 @@ function SplitItem() {
         },
         body: JSON.stringify({ amount: amount, id: userId }),
       });
-  
+
       if (!response.ok) {
         throw new Error('Failed to settle amount');
       }
-  
+
       const data = await response.json();
-      console.log(data.message);
-      toast('Settle successful', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-        closeButton: false,
-        hideProgressBar: false,
-      });
-  
-      // Redirect or navigate on successful settle
-      navigate('/split');
+      // console.log(data.message);
+      if(data.message === "Successfully updated owe field for the user"){
+
+        toast('Settle successful', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+        
+        // Redirect or navigate on successful settle
+        navigate('/split');
+      }
+      else{
+        toast.error(data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeButton: false,
+          hideProgressBar: false,
+        });
+      }
     } catch (error) {
       console.error('Error settling amount:', error);
       toast.error('Error settling amount', {
@@ -107,7 +131,6 @@ function SplitItem() {
       });
     }
   };
-  
 
   useEffect(() => {
     const fetchMember = async () => {
@@ -125,7 +148,7 @@ function SplitItem() {
         }
 
         const data = await response.json();
-        console.log('Member Data:', data.members);
+        // console.log('Member Data:', data.members);
         setMembers(data.members);
         setGrpName(data.name);
       } catch (error) {
@@ -138,59 +161,59 @@ function SplitItem() {
 
   return (
     <>
-        <UserNav/>
-    <div className='container'>
-      <h1 className='heading'>{grpName}</h1>
-      <table className="members-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Owe</th>
-            <th>Lent</th>
-          </tr>
-        </thead>
-        <tbody>
-          {members.map((member) => {
+      <UserNav />
+      <div className='container'>
+        <h1 className='heading'>{grpName}</h1>
+        <table className="members-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Owe</th>
+              <th>Lent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {members.map((member) => {
               let x = 0;
               let y = 0;
-              
+
               for (let i = 0; i < member.groups.length; i++) {
-                  if (member.groups[i].group === id) {
-                x = member.groups[i].owe;
-                y = member.groups[i].lent;
-                break;
-            }
-        }
+                if (member.groups[i].group === id) {
+                  x = member.groups[i].owe;
+                  y = member.groups[i].lent;
+                  break;
+                }
+              }
 
-        return (
-            <tr key={member._id}>
-                <td>{member.username}</td>
-                <td>{x}</td>
-                <td>{y}</td>
-              </tr>
-            );
-        })}
-        </tbody>
-      </table>
+              return (
+                <tr key={member._id}>
+                  <td>{member.username}</td>
+                  <td>{x}</td>
+                  <td>{y}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
 
-      {/* Additional code for input and buttons */}
-      <div className="input-section">
-        <button className="split-button" onClick={() => handleSplit()}>
-          Split
-        </button>
-        <input
-          type="text"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+        {/* Additional code for input and buttons */}
+        <div className="input-section">
+          <button className="split-button" onClick={() => handleSplit()}>
+            Split
+          </button>
+          <input
+            type="text"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
           />
-        <button className="settle-button" onClick={() => handleSettle()}>
-          Settle
-        </button>
+          <button className="settle-button" onClick={() => handleSettle()}>
+            Settle
+          </button>
+        </div>
       </div>
-    </div>
       <Footer className='footer1' style={{ position:'absolute' , bottom: '0' }} />
-          </>
+    </>
   );
 }
 

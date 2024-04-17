@@ -3,20 +3,12 @@ import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Switch from '@mui/material/Switch';
 import axios from 'axios';
-import { useTheme } from '../../ThemeContext'; // Update the path accordingly
 import './UserNav.css';
 
 function UserNav() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState({});
-  const { theme, toggleTheme } = useTheme();
-  const handleToggleTheme = () => {
-    console.log('Toggle Theme');
-    toggleTheme();
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('jwt');
 
@@ -48,9 +40,9 @@ function UserNav() {
   };
 
   return (
-    <div className={`user-nav ${theme}`}>
+    <div className="user-nav">
       <div className="user-nav-container">
-        <Link className="brand" to="/">
+        <Link className="brand" to="/home">
           MonageX
         </Link>
       </div>
@@ -58,7 +50,7 @@ function UserNav() {
         <div className="user">
           <ul className="user-menu-list">
             <li>
-              <Link to="/">
+              <Link to="/home">
                 Dashboard
               </Link>
             </li>
@@ -89,15 +81,6 @@ function UserNav() {
                 </li>
           </ul>
         </div>
-        {/* <div className="theme-toggle"   style={{  marginTop:'0.7rem'}}>
-          <Switch
-            checked={theme === 'dark'}
-            onChange={handleToggleTheme}
-          
-            color="default"
-            inputProps={{ 'aria-label': 'toggle theme' }}
-          /> */}
-        {/* </div> */}
         <div className="avatar-container">
           <Avatar
             onClick={openAvatarMenu}
@@ -142,7 +125,7 @@ function UserNav() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" onClick={closeAvatarMenu}>
+                  <Link to="/home" onClick={closeAvatarMenu}>
                     Dashboard
                   </Link>
                 </li>

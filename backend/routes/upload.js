@@ -31,7 +31,7 @@ router.post('/', upload.single('profilePhoto'), async (req, res) => {
         return res.status(404).json({ message: 'User not found' });
       }
   
-      console.log('User updated successfully:', updatedUser);
+      // console.log('User updated successfully:', updatedUser);
       return res.status(200).json({ message: 'Profile photo uploaded successfully' });
     } catch (error) {
       console.error('Error updating user profile photo:', error);

@@ -16,27 +16,38 @@ const Login = () => {
         password,
       });
 
-      const token = response.data.token;
-      const obtainedUserId = response.data.user._id;
+      const { token, user, expiresIn } = response.data;
       localStorage.setItem('jwt', token);
-      localStorage.setItem('userId', obtainedUserId);
+      localStorage.setItem('userId', user._id);
+      // console.log(token);
+      // console.log(user);
+
+      // setTimeout(() => {
+      //   // Logout logic here
+      //   localStorage.removeItem('jwt');
+      //   navigate('/logout');
+      // }, expiresIn * 1000);
 
       // Redirect to the user's profile page after login
-      navigate('/');
+      navigate('/home');
     } catch (error) {
-      if (error.response) {
-        const errorMessage = error.response.data.message;
-        toast.error(errorMessage, {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 2000,
-          closeButton: false,
-          hideProgressBar: false,
-        });
-      } else if (error.request) {
-        console.error('No response received:', error.request);
-      } else {
-        console.error('Error setting up the request:', error.message);
-      }
+      handleLoginError(error);
+    }
+  };
+
+  const handleLoginError = (error) => {
+    if (error.response) {
+      const errorMessage = error.response.data.message;
+      toast.error(errorMessage, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        closeButton: false,
+        hideProgressBar: false,
+      });
+    } else if (error.request) {
+      console.error('No response received:', error.request);
+    } else {
+      console.error('Error setting up the request:', error.message);
     }
   };
 

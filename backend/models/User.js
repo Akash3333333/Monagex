@@ -1,7 +1,7 @@
-// models/User.js
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+  // Existing fields
   username: {
     type: String,
     required: true,
@@ -40,7 +40,12 @@ const userSchema = new mongoose.Schema({
     owe: { type: Number, default: 0 },
     lent: { type: Number, default: 0 },
   }],
-}, { timestamps: true } );
+  groupNames: {
+    type: [String], // Array of group names
+    required: true,
+    default: [], // Default to empty array
+  },
+}, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);
 

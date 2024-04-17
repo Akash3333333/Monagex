@@ -1,46 +1,71 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import SplitItem from "./SplitItem";
+import { Link, useParams } from "react-router-dom";
+import axios from 'axios';
 
-function SplitGrp({ userId }) {
+function SplitGrp() {
+  const [userId, setUserId] = useState('');
   const [groups, setGroups] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem('jwt');
+      try {
+        const response = await axios.get('http://localhost:5000/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
+        if (response.data && response.data.user && response.data.user._id) {
+          setUserId(response.data.user._id);
+        } else {
+          console.error('User ID not available in response:', response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []); // Empty dependency array to run only once
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await fetch(
+        const response = await axios.post(
           "http://localhost:5000/api/split/getgroup",
+          { id: userId },
           {
-            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: userId }),
           }
         );
-
-        if (!response.ok) {
+        
+        if (!response.data || !response.data.group) {
           throw new Error("Failed to fetch groups");
         }
-
-        const data = await response.json();
-        setGroups(data.group);
+        
+        setGroups(response.data.group);
       } catch (error) {
         console.error("Error fetching groups:", error);
       }
     };
 
-    fetchGroups();
-  }, [userId]);
+    if (userId) {
+      fetchGroups();
+    }
+  }, [userId]); // Add userId as a dependency
 
   return (
-    <div className="grp-container" style={{ display:'flex' , flexDirection: 'column' }} >
+    <div className="grp-container" style={{ display: 'flex', flexDirection: 'column' }} >
       <h1>Group List</h1>
       {groups.map((group) => (
         <Link
           to={`/grp/${group._id}`}
-          style={{ color: "darkblue" , marginTop:'1rem' , marginBottom:'1rem' }}
+          style={{ color: "gray", marginTop: '1rem', marginBottom: '1rem' }}
           activeclassName="active-link"
+          key={group._id} // Use group._id as the key
         >
           {group.groupName}
         </Link>
