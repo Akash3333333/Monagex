@@ -1,0 +1,95 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: auto;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.welcome-section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../public/images/cbg.jpg'); /* Assuming the image is in the public/images directory */
+  background-size: cover;
+  background-position:inherit;
+  background-repeat: no-repeat;
+  color: #161616;
+  text-align: center;
+}
+
+.welcome-section h1 {
+  margin: 0;
+  font-size: 3.5rem;
+}
+
+.mid-portion, .bottom-portion {
+  padding: 2rem;
+}
+
+.friend1, .group1, .records-container {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(6, 6, 6, 0.64);
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.records-header {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.view-all-records, .view-all-friends, .view-all-groups {
+  cursor: pointer;
+  color: #ce2600;
+}
+
+@media (max-width: 768px) {
+  .welcome-section {
+    height: 100vh; /* Adjust height for smaller screens */
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .friend1, .group1, .records-container {
+    padding: 1rem;
+  }
+
+  .MuiGrid-root {
+    width: 100% !important; /* Ensure full width for grid items */
+    margin-bottom: 20px; /* Add some space between grid items */
+  }
+
+  .records-container, .graph-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 468px) {
+  .welcome-section {
+    height: 60vh; /* Adjust height for smaller screens */
+  }
+
+  .welcome-section h1 {
+    font-size: 1.5rem;
+  }
+
+  .friend1, .group1, .records-container {
+    padding: 0.75rem;
+  }
+}
