@@ -1,0 +1,64 @@
+.friend-container {
+    /* padding: 20px; */
+     display: flex;
+     flex-direction: column;
+     /* background: url('../../../public/images/ff.jpg'); */
+    flex-wrap:nowrap;
+  }
+  
+.grid-container{
+    display: flex;
+    /* scroll-behavior: auto; */
+    flex-wrap: wrap;
+}
+
+  .friend-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    background-color: #fff;
+  }
+  
+  .friend-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .friend-card-content {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .friend-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+  
+  .friend-name {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  
+  .friend-bio {
+    margin-top: 10px;
+    color: #555;
+  }
+  
+  .friend-button {
+    display: block;
+    margin: 15px auto;
+    background-color: #2196f3;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .friend-button:hover {
+    background-color: #1976d2;
+  }

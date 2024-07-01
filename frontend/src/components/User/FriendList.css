@@ -1,0 +1,45 @@
+/* FriendList.css (create a new CSS file named FriendList.css) */
+
+/* Container styling */
+.friend-list-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    display: contents;
+  }
+  
+  /* Header styling */
+  .friend-list-header {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    background-color: #fff;
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+  }
+  
+  /* List styling */
+  .friend-list {
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .friend-list-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    background-color: #fff;
+    align-items: center;
+  }
+  
+  /* User details styling */
+  .friend-details {
+    margin-left: 10px;
+  }
+  
+  .friend-username {
+    font-weight: bold;
+  }
+  
+  /* Add this CSS to your existing CSS file or import it in your component */
+  
