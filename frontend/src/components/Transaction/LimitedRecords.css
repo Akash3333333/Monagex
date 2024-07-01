@@ -1,0 +1,104 @@
+.limited-records-container {
+    width: 100%;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .limited-records-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .limited-records-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .view-all-records {
+    color: #007bff; /* Blue color for link */
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .view-all-records:hover {
+    color: #0056b3; /* Darker shade of blue on hover */
+  }
+  
+  .limited-records-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adjust the gap between record categories */
+  }
+  
+  .limited-records-category {
+    flex: 1;
+    max-width: 300px; /* Adjust the maximum width of each category */
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a card effect */
+    background-color: #fff; /* White background */
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out; /* Smooth transition on hover */
+  }
+  
+  .limited-records-category:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .record-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap between records within a category */
+  }
+  
+  .record-card {
+    padding: 10px;
+    border-bottom: 1px solid #ddd; /* Separator between records */
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .record-date {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .record-amount {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .record-note {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .limited-records-content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .limited-records-category {
+      max-width: 100%; /* Take full width on smaller screens */
+    }
+  }
+  

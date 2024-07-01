@@ -1,0 +1,49 @@
+/* expense.css */
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .expense-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the container takes full viewport height */
+  }
+  
+  .expense-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../public/images/expense1.jpg');
+    background-position: center;
+    background-size: cover;
+    padding: 20px;
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds container height */
+    max-height: calc(100vh - 100px); /* Adjust as needed to account for footer height */
+  }
+  
+  .footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Media query for screens with a maximum width of 768px */
+  @media (max-width: 768px) {
+    .expense-content {
+      padding: 10px;
+    }
+  }
+  
+  /* Media query for screens with a maximum width of 468px */
+  @media (max-width: 468px) {
+    .expense-content {
+      padding: 10px;
+    }
+  }
+  

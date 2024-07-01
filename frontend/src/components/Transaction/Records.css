@@ -1,0 +1,90 @@
+.records-container {
+  width: 100%;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inner-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Adjust the gap between record categories */
+}
+
+.records-category {
+  flex: 1;
+  max-width: 300px; /* Adjust the maximum width of each category */
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a card effect */
+  background-color: #fff; /* White background */
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+.records-category:hover {
+  transform: translateY(-5px); /* Lift the card on hover */
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  text-align: center;
+}
+
+.record-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust the gap between records within a category */
+}
+
+.record-card {
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Separator between records */
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items:flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.record-date {
+  font-size: 0.9rem;
+  color: #515151;
+  
+}
+
+.record-amount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(2, 136, 151);
+}
+
+.record-note {
+  font-size: 1rem;
+  color: #f00000;
+}
+
+@media (max-width: 768px) {
+  .inner-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .records-category {
+    max-width: 100%; /* Take full width on smaller screens */
+  }
+}

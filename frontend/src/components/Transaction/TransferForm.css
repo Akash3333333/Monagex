@@ -1,0 +1,75 @@
+.transfer-form {
+  max-width: 500px;
+  /* width: 90%; */
+  margin: auto;
+  background-color: #2c2d31;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input-group {
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.form-control {
+  color: #2c2d31;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.btn-primary:hover {
+  background-color: #45a049;
+}
+
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
+  .transfer-form {
+    padding: 15px;
+  }
+  .input-group {
+    margin-bottom: 12px;
+  }
+
+  .form-control {
+    padding: 10px;
+  }
+
+  .btn-primary {
+    padding: 10px;
+  }
+}
+
+/* Media query for screens with a maximum width of 468px */
+@media (max-width: 468px) {
+  .transfer-form {
+    padding: 10px;
+  }
+  .input-group {
+    margin-bottom: 8px;
+  }
+
+  .form-control {
+    padding: 8px;
+  }
+
+  .btn-primary {
+    padding: 8px;
+  }
+}

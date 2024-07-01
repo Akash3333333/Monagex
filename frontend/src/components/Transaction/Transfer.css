@@ -1,0 +1,63 @@
+/* Transfer.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.transfer-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensure the container takes full viewport height */
+    justify-content: space-between;
+}
+
+.transfer-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../public/images/transfer.jpg');
+    background-position: center;
+    background-size: cover;
+    padding: 20px;
+}
+
+
+.sundar-footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* Media query for screens with a maximum width of 768px */
+@media (max-width: 768px) {
+    .transfer-content {
+        padding: 10px;
+    }
+
+    .footer-content p {
+        font-size: 1rem;
+    }
+}
+
+/* Media query for screens with a maximum width of 468px */
+@media (max-width: 468px) {
+    .footer-content p {
+        font-size: 0.8rem;
+    }
+}
