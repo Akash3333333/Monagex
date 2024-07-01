@@ -88,5 +88,9 @@
     "presets": [
       "@babel/preset-react"
     ]
+  },
+  "resolutions": {
+    "react": "^18.2.0",
+    "@jalba/react-css-doodle/react": "^18.2.0"
   }
 }
