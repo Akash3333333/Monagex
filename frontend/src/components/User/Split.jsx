@@ -4,7 +4,6 @@ import Notifications from "./Notifications";
 import Footer from "../Footer";
 import './Split.css';
 // import TransNav from "./TransNav";
-import Sidebar from "../Sidebar";
 import UserNav from "./UserNav";
 import SplitGrp from "./SplitGrp";
 
