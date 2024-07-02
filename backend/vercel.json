@@ -7,9 +7,9 @@
       }
     ],
     "routes": [
-      { "src": "/auth/signup", "dest": "/index.js" },
-      { "src": "/api/*", "dest": "/index.js" },
-      { "src": "/(.*)", "dest": "/index.js" }
+      { "src": "/auth/signup", "dest": "/" },
+      { "src": "/api/*", "dest": "/" },
+      { "src": "/(.*)", "dest": "/" }
     ]
   }
   
