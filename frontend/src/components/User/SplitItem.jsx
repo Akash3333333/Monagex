@@ -202,6 +202,7 @@ const SplitItem = () => {
         }
       });
 
+     
       const response = await axios.post(
         `https://monagex-backend.vercel.app/api/settle/${groupId}`,
         {

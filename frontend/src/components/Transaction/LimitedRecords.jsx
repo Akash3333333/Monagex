@@ -12,6 +12,7 @@ const LimitedRecords = () => {
     const fetchData = async (category) => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
+        
         const response = await axios.get(`https://monagex-backend.vercel.app/api/finance/get-${category}/limited`, {
           headers: {
             Authorization: `Bearer ${token}` // Set Authorization header with Bearer token

@@ -28,8 +28,10 @@ const ResetPassword = () => {
       return;
     }
 
+
     try {
       const response = await axios.post(`https://monagex-backend.vercel.app/auth/reset-password/${token}`, {
+      
         email,
         password,
         token,

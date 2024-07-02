@@ -48,7 +48,8 @@ const FriendList = () => {
               <div>
                 {friend.profilePhoto ? (
                   <img
-                    src={`https://monagex-backend.vercel.app/uploads/${friend.profilePhoto}`}
+                  
+                  src={`https://monagex-backend.vercel.app/uploads/${friend.profilePhoto}`}
                     alt="Profile"
                     style={{
                       width: '100px',

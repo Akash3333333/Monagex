@@ -62,6 +62,7 @@ const ExpenseForm = () => {
 
     try {
       const jwt = localStorage.getItem('jwt'); // Retrieve JWT token from localStorage
+      
       const response = await axios.post('https://monagex-backend.vercel.app/api/finance/create-expense', payload, {
         headers: {
           Authorization: `Bearer ${jwt}`, // Include JWT token in Authorization header

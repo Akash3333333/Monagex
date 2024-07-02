@@ -28,6 +28,7 @@ function SingleUser({ friend, onAddFriend, onAcceptFriend, isRequest }) {
             <Avatar
               className="friend-avatar"
               alt={friend.username}
+              
               src={`https://monagex-backend.vercel.app/uploads/${friend.profilePhoto}`}
             />
           }

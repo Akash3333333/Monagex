@@ -9,6 +9,7 @@ function LimitedSplitGrp() {
     const fetchGroups = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
+        
         const response = await axios.get(
           `https://monagex-backend.vercel.app/api/groups/getgroups`, {
             headers: {

@@ -105,8 +105,7 @@ const Profile = () => {
             <Avatar className={classes.avatar}>
               {/* Display the profile photo if available, otherwise show the default avatar */}
               {user.profilePhoto ? (
-                <img
-                  src={`https://monagex-backend.vercel.app/uploads/${user.profilePhoto}`}
+                <img src={`https://monagex-backend.vercel.app/uploads/${user.profilePhoto}`}
                   alt="Profile"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

@@ -138,6 +138,7 @@ function UserNav() {
           <Avatar onClick={openAvatarMenu} className="user-avatar">
             {user && user.profilePhoto ? (
               <img
+              
               src={`https://monagex-backend.vercel.app/uploads/${user.profilePhoto}`}
               alt="Profile"
                 style={{
