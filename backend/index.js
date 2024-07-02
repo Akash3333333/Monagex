@@ -20,7 +20,7 @@ const server = require('http').createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: 'https://monagex-87djquird-hardik-kumar-singhs-projects.vercel.app/',
+  origin: 'https://monagex-frontend.vercel.app',
   method: [ "POST", "GET"],
   credentials: true
 }));
