@@ -11,7 +11,7 @@ const multer = require('multer');
 dotenv.config();
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect('mongodb+srv://akashchimu1718:MonageX%40123@monagex.stn30d1.mongodb.net/?retryWrites=true&w=majority&appName=MonageX');
 
 
 const port = process.env.PORT || 5000;
