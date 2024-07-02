@@ -12,7 +12,7 @@ const FriendList = () => {
     const fetchFriends = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get('http://localhost:5000/api/friends/getfriends', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/friends/getfriends', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -48,7 +48,7 @@ const FriendList = () => {
               <div>
                 {friend.profilePhoto ? (
                   <img
-                    src={`http://localhost:5000/uploads/${friend.profilePhoto}`}
+                    src={`https://monagex-backend.vercel.app/uploads/${friend.profilePhoto}`}
                     alt="Profile"
                     style={{
                       width: '100px',

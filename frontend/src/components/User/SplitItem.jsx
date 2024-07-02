@@ -40,7 +40,7 @@ const SplitItem = () => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get('http://localhost:5000/api/profile/getProfile', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/profile/getProfile', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -64,7 +64,7 @@ const SplitItem = () => {
 
       try {
         const response = await axios.post(
-          `http://localhost:5000/api/balance/owe`,
+          `https://monagex-backend.vercel.app/api/balance/owe`,
           {
             id: userId,
             groupId: groupId,
@@ -90,7 +90,7 @@ const SplitItem = () => {
       const token = localStorage.getItem("jwt");
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/transactionHistory/${groupId}`,
+          `https://monagex-backend.vercel.app/api/transactionHistory/${groupId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ const SplitItem = () => {
       const token = localStorage.getItem("jwt");
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/groups/getMembers",
+          "https://monagex-backend.vercel.app/api/groups/getMembers",
           {
             id: groupId,
           },
@@ -158,7 +158,7 @@ const SplitItem = () => {
       });
 
       const response = await axios.post(
-        `http://localhost:5000/api/split/${groupId}`,
+        `https://monagex-backend.vercel.app/api/split/${groupId}`,
         {
           description: description,
           borrowers: borrowersData,
@@ -203,7 +203,7 @@ const SplitItem = () => {
       });
 
       const response = await axios.post(
-        `http://localhost:5000/api/settle/${groupId}`,
+        `https://monagex-backend.vercel.app/api/settle/${groupId}`,
         {
           description: description,
           lenders: lendersData,
@@ -240,7 +240,7 @@ const SplitItem = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/simplifyDebts/${groupId}`,
+        `https://monagex-backend.vercel.app/api/simplifyDebts/${groupId}`,
         {
           groupId: groupId,
         },

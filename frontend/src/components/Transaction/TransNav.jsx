@@ -17,7 +17,7 @@ function TransNav() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/profile/getProfile', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/profile/getProfile', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('jwt')}` // Assuming you store the token in localStorage
           }
@@ -128,7 +128,7 @@ function TransNav() {
             <Avatar onClick={openAvatarMenu} className="user-avatar">
               {user.profilePhoto ? (
                 <img
-                  src={`http://localhost:5000/uploads/${user.profilePhoto}`}
+                  src={`https://monagex-backend.vercel.app/uploads/${user.profilePhoto}`}
                   alt="Profile"
                   style={{
                     width: "100%",

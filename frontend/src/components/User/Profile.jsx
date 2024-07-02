@@ -29,7 +29,7 @@ const Profile = () => {
       try {
         const jwt = localStorage.getItem('jwt'); // Retrieve JWT token from localStorage
 
-        const response = await axios.get('http://localhost:5000/api/profile/getProfile', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/profile/getProfile', {
           headers: {
             'Authorization': `Bearer ${jwt}` // Include JWT token in Authorization header
           }
@@ -56,7 +56,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('profilePhoto', profilePhoto);
 
-      await axios.post('http://localhost:5000/api/profile/uploadDP', formData, {
+      await axios.post('https://monagex-backend.vercel.app/api/profile/uploadDP', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -106,7 +106,7 @@ const Profile = () => {
               {/* Display the profile photo if available, otherwise show the default avatar */}
               {user.profilePhoto ? (
                 <img
-                  src={`http://localhost:5000/uploads/${user.profilePhoto}`}
+                  src={`https://monagex-backend.vercel.app/uploads/${user.profilePhoto}`}
                   alt="Profile"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

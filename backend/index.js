@@ -11,7 +11,7 @@ const multer = require('multer');
 dotenv.config();
 
 // MongoDB connection
-mongoose.connect('mongodb+srv://akashchimu1718:MonageX%40123@monagex.stn30d1.mongodb.net/');
+mongoose.connect(process.env.MONGO_URI);
 
 
 const port = process.env.PORT || 5000;
@@ -19,7 +19,11 @@ const app = express();
 const server = require('http').createServer(app);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://monagex-87djquird-hardik-kumar-singhs-projects.vercel.app/',
+  method: [ "POST", "GET"],
+  credentials: true
+}));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

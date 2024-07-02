@@ -1,0 +1,23 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      { "src": "/auth/(.*)", "dest": "/index.js" },
+      { "src": "/api/balance/(.*)", "dest": "/index.js" },
+      { "src": "/api/finance/(.*)", "dest": "/index.js" },
+      { "src": "/api/friends/(.*)", "dest": "/index.js" },
+      { "src": "/api/groups/(.*)", "dest": "/index.js" },
+      { "src": "/api/profile/(.*)", "dest": "/index.js" },
+      { "src": "/api/records/(.*)", "dest": "/index.js" },
+      { "src": "/api/settle/(.*)", "dest": "/index.js" },
+      { "src": "/api/simplifyDebts/(.*)", "dest": "/index.js" },
+      { "src": "/api/split/(.*)", "dest": "/index.js" },
+      { "src": "/api/transactionHistory/(.*)", "dest": "/index.js" }
+    ]
+  }
+  

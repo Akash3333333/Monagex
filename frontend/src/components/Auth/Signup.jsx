@@ -30,7 +30,7 @@ const Signup = () => {
         cpassword: cpassword,
       };
 
-      const response = await axios.post('http://localhost:5000/auth/signup', user);
+      const response = await axios.post('https://monagex-backend.vercel.app/auth/signup', user);
 
       if (response.status === 201) {
         toast.success('Registration successful!', {

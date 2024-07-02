@@ -29,7 +29,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:5000/auth/reset-password/${token}`, {
+      const response = await axios.post(`https://monagex-backend.vercel.app/auth/reset-password/${token}`, {
         email,
         password,
         token,

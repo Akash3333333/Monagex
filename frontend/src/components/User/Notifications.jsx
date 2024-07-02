@@ -15,7 +15,7 @@ const Notifications = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get('http://localhost:5000/api/friends/getusers', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/friends/getusers', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -31,7 +31,7 @@ const Notifications = () => {
     const fetchFriends = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get('http://localhost:5000/api/friends/getfriends', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/friends/getfriends', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -46,7 +46,7 @@ const Notifications = () => {
     const fetchRequests = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get('http://localhost:5000/api/friends/getrequests', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/friends/getrequests', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -66,7 +66,7 @@ const Notifications = () => {
   const handleAddFriend = async (friendId) => {
     try {
       const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-      const response = await axios.put('http://localhost:5000/api/friends/addfriend', {
+      const response = await axios.put('https://monagex-backend.vercel.app/api/friends/addfriend', {
         to_be_added: friendId,
       }, {
         headers: {
@@ -100,7 +100,7 @@ const Notifications = () => {
   const handleAcceptFriend = async (friendId) => {
     try {
       const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-      const response = await axios.put('http://localhost:5000/api/friends/acceptfriend', {
+      const response = await axios.put('https://monagex-backend.vercel.app/api/friends/acceptfriend', {
         from: friendId,
       }, {
         headers: {

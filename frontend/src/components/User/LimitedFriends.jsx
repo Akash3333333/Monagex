@@ -14,7 +14,7 @@ const LimitedFriends = () => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get('http://localhost:5000/api/profile/getProfile', {
+        const response = await axios.get('https://monagex-backend.vercel.app/api/profile/getProfile', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -36,7 +36,7 @@ const LimitedFriends = () => {
     const fetchFriends = async () => {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
-        const response = await axios.get(`http://localhost:5000/api/friends/getfriends/limited`, {
+        const response = await axios.get(`https://monagex-backend.vercel.app/api/friends/getfriends/limited`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -69,7 +69,7 @@ const LimitedFriends = () => {
             <li key={friend._id} className="friend-list-item">
               <div>
                 {friend.profilePhoto ? (
-                  <img src={`http://localhost:5000/uploads/${friend.profilePhoto}`} alt="Profile"
+                  <img src={`https://monagex-backend.vercel.app/uploads/${friend.profilePhoto}`} alt="Profile"
                     style={{ width: '100px', height: '100px', objectFit: 'cover', border: '4px solid #2c2d31', borderRadius: '10%' }} />
                 ) : (
                   <img src="/images/noAvatar.png" alt="Profile" style={{ width: '100px', height: '100px', objectFit: 'cover', border: '4px solid #2c2d31', borderRadius: '10%' }} />

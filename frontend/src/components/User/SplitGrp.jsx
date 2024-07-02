@@ -10,7 +10,7 @@ function SplitGrp() {
       try {
         const token = localStorage.getItem('jwt'); // Retrieve token from localStorage
         const response = await axios.get(
-          `http://localhost:5000/api/groups/getgroups`, {
+          `https://monagex-backend.vercel.app/api/groups/getgroups`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
