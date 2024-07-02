@@ -19,51 +19,36 @@ const app = express();
 const server = require('http').createServer(app);
 
 // Middleware
-app.use(cors({
-  origin: 'https://monagex-frontend.vercel.app',
-  method: [ "POST", "GET"],
-  credentials: true
-}));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// CORS Configuration
+const corsOptions = {
+  origin: 'https://monagex-frontend.vercel.app',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true // enable credentials (cookies)
+};
 
-// Auth Routes
+// Enable CORS for all routes
+app.use(cors(corsOptions));
+
+// Handle OPTIONS requests
+app.options('*', cors(corsOptions));
+
+// Routes
 app.use('/auth', require('./routes/authRoutes'));
-
-// Balance Routes
 app.use('/api/balance', require('./routes/balanceRoutes'));
-
-// Finance Routes
 app.use('/api/finance', require('./routes/financeRoutes'));
-
-// Friend Routes
 app.use('/api/friends', require('./routes/friendRoutes'));
-
-// Group Routes
 app.use('/api/groups', require('./routes/groupRoutes'));
-
-// Profile Routes
 app.use('/api/profile', require('./routes/profileRoutes'));
-
-// Records Routes
 app.use('/api/records', require('./routes/recordsRoutes'));
-
-// Settle Routes
 app.use('/api/settle', require('./routes/settleRoutes'));
-
-// Simplify Debts Routes
 app.use('/api/simplifyDebts', require('./routes/simplifyDebtsRoutes'));
-
-// Split Routes
 app.use('/api/split', require('./routes/splitRoutes'));
-
-// Transaction History Routes
-app.use('/api/transactionHistory',require('./routes/transactionHistoryRoutes'));
-
-
-
+app.use('/api/transactionHistory', require('./routes/transactionHistoryRoutes'));
 
 // Start server
 server.listen(port, () => {
