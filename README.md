@@ -37,10 +37,10 @@ The Expense Tracker MERN App follows a client-server architecture:
 - **Groups Page**: Create and manage groups for shared expenses, add members, and settle debts within groups.
 
 ## Technologies Used
-- **Frontend**: React, Redux, Chart.js
-- **Backend**: Node.js, Express.js, JWT, NodeMailer
+- **Frontend**: React, Chart.js
+- **Backend**: Node.js, Express.js, JWT
 - **Database**: MongoDB, Mongoose
-- **Other Tools**: Axios, Bcrypt, dotenv
+- **Other Tools**: Axios, Bcrypt, dotenv, Nodemailer
 
 ## Screenshots
 Add screenshots of the app pages to provide visual context:
