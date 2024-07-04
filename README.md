@@ -22,8 +22,8 @@ The Expense Tracker MERN App is a comprehensive financial management tool design
 
 ## System Architecture
 The Expense Tracker MERN App follows a client-server architecture:
-- **Front-end**: Built with React, Redux, and Chart.js for dynamic and responsive user interfaces.
-- **Back-end**: Developed using Node.js, Express.js, JWT, and NodeMailer for APIs, user authentication, expense tracking, and debt management.
+- **Front-end**: Built with React, and Chart.js for dynamic and responsive user interfaces.
+- **Back-end**: Developed using Node.js and Express.js. It provides APIs for user authentication, expense tracking, and debt management, with JWT for secure authentication and NodeMailer for sending notifications.
 - **Database**: MongoDB with Mongoose, a NoSQL database, stores user data, transaction details, and financial information.
 
 ## Pages and Descriptions
@@ -37,8 +37,8 @@ The Expense Tracker MERN App follows a client-server architecture:
 - **Groups Page**: Create and manage groups for shared expenses, add members, and settle debts within groups.
 
 ## Technologies Used
-- **Frontend**: React, Chart.js
-- **Backend**: Node.js, Express.js, JWT
+- **Frontend**: React, Chart.js, MaterialUI
+- **Backend**: Node.js, Express.js
 - **Database**: MongoDB, Mongoose
 - **Other Tools**: Axios, Bcrypt, dotenv, Nodemailer
 
