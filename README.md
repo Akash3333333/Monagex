@@ -1,4 +1,4 @@
-# Expense Tracker MERN App
+# Monagex MERN App
 
 ## Table of Contents
 - [Introduction](#introduction)
