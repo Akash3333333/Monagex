@@ -1,66 +1,76 @@
-# MonageX
+# Expense Tracker MERN App
 
-MonageX is a robust money management application designed to simplify your financial life. With a focus on user-friendly features and comprehensive functionality, it empowers users to take control of their finances effortlessly.
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [System Architecture](#system-architecture)
+- [Pages and Descriptions](#pages-and-descriptions)
+- [Technologies Used](#technologies-used)
+- [Screenshots](#screenshots)
 
-## Key Features
+## Introduction
+The Expense Tracker MERN App is a comprehensive financial management tool designed to help users effectively manage their finances. Users can track their income, expenses, and transfers with ease, gaining insights through visual representations such as pie charts. The app facilitates seamless bill splitting among friends and enables users to settle debts effortlessly. Users can view detailed information about who owes them and whom they owe, enhancing transparency and simplifying financial interactions.
 
-- **Expense Tracking:** Keep a meticulous record of your expenses, categorize them, and gain insights into your spending habits.
-- **Income Recording:** Seamlessly record your various income sources for a complete financial overview.
-- **Seamless Fund Transfers:** Transfer funds seamlessly between accounts to manage your finances with ease.
-- **Intuitive Graph Displays:** Visualize your financial data through intuitive graphs, providing a clear picture of your financial health.
-- **Group Collaboration:** Collaborate with friends and family through group features, making shared expenses and financial planning a breeze.
-- **Friend Requests:** Connect with friends, send and accept requests to enhance your collaborative financial experience.
-- **Notifications:** Stay informed with automated notifications for transactions, group activities, and important financial updates.
+## Features
+- **Expense Tracking**: Track your income, expenses, and transfers.
+- **Pie Charts**: Visualize income, expenses, and transfers individually through pie charts.
+- **Split and Settle**: Split bills with friends and settle debts easily. Notifications are sent to involved users via NodeMailer when a split or settle action is made.
+- **Simplify Debts**: Manage and simplify debts, making it easy to keep track of who owes whom. This feature minimizes the number of transactions needed to settle debts, optimizing financial interactions.
+- **Transaction History**: View a detailed history of all transactions, including splits and settlements.
+- **Authentication**: Secure user authentication using JSON Web Tokens (JWT).
+- **Friend Requests and Groups**: Connect with other users through friend requests and form groups to manage shared expenses.
 
-## Tech Stacks
+## System Architecture
+The Expense Tracker MERN App follows a client-server architecture:
+- **Front-end**: Built with React, Redux, and Chart.js for dynamic and responsive user interfaces.
+- **Back-end**: Developed using Node.js, Express.js, JWT, and NodeMailer for APIs, user authentication, expense tracking, and debt management.
+- **Database**: MongoDB with Mongoose, a NoSQL database, stores user data, transaction details, and financial information.
 
-- MongoDB
-- ExpressJs
-- ReactJs
-- NodeJs
-- Material-UI
+## Pages and Descriptions
+- **Sign Up / Login Page**: User authentication and registration.
+- **Home Page**: Dashboard overview of financial status and quick access to key features.
+- **Profile Page**: Manage user profile information and settings.
+- **Recording Expenses Page**: Record income, expenses, and transfers with categorization options.
+- **Expense Showing Page**: Display and analyze recorded expenses with pie charts.
+- **Split/Settle Page**: Manage shared expenses, view who owes whom, settle debts, and review transaction history. Includes an option to simplify debts for streamlined financial management.
+- **Friends Page**: Manage friend requests, connections, and view friends list.
+- **Groups Page**: Create and manage groups for shared expenses, add members, and settle debts within groups.
 
+## Technologies Used
+- **Frontend**: React, Redux, Chart.js
+- **Backend**: Node.js, Express.js, JWT, NodeMailer
+- **Database**: MongoDB, Mongoose
+- **Other Tools**: Axios, Bcrypt, dotenv
 
-## Different Pages
+## Screenshots
+Add screenshots of the app pages to provide visual context:
 
-
-### Home Page
-
-![Image 8](https://github.com/Hardik-111/Monagex/assets/89783619/b07a6a1f-5f82-4147-824c-660f86e08b44)
-
-
-### Profile Page
-
-![Image 9](https://github.com/Hardik-111/Monagex/assets/89783619/c3675df9-5632-4d7d-bb9c-ada91cd1c962)
-
-
-### Record Transaction(Income Page)
-
-![Image 6](https://github.com/Hardik-111/Monagex/assets/89783619/a880a64f-5e99-438b-8f23-9a5f3da343b3)
-
-
-### Record Transaction(Expense Page)
-![Image 3](https://github.com/Hardik-111/Monagex/assets/89783619/987fa231-6e39-4d16-9f22-3b800d5bba3e)
-
-
-### Record Transaction(Transfer Page)
-![Image 4](https://github.com/Hardik-111/Monagex/assets/89783619/0095904c-423f-4dc7-bf00-dd9200ed302e)
-
-### View Transaction Page
-![Image 5](https://github.com/Hardik-111/Monagex/assets/89783619/ec55d3b9-029c-4886-a1e4-bca6b6658546)
-
-### Group Page
-![Image 12](https://github.com/Hardik-111/Monagex/assets/89783619/0f5dabff-086d-4a26-883d-e45c202f41dc)
+- **Sign Up / Login Page**
+  ![Sign Up / Login Page](Screenshots/Signup.png)
+  ![Sign Up / Login Page](Screenshots/Login.png)
 
 
-### Notifications Page
-![Image 2](https://github.com/Hardik-111/Monagex/assets/89783619/f5715c58-bfef-428b-b073-90cb608398bd)
-![Image 1](https://github.com/Hardik-111/Monagex/assets/89783619/36390e12-2c41-4594-b755-86ab4bd213aa)
+- **Home Page**
+  ![Home Page](Screenshots/Home.png)
+
+- **Profile Page**
+  ![Profile Page](Screenshots/Profile.png)
+
+- **Recording Expenses Page**
+  ![Recording Expenses Page](Screenshots/Record%20Transaction.png)
+
+- **Expense Showing Page**
+  ![Expense Showing Page](Screenshots/View%20Transactions_1.png)
+  ![Expense Showing Page](Screenshots/View%20Transactions_2.png)
 
 
-### Split & Settle Page
-![Image 11](https://github.com/Hardik-111/Monagex/assets/89783619/a939b12c-014f-44a2-83f2-8bafe4a00e74)
-![Image 10](https://github.com/Hardik-111/Monagex/assets/89783619/e68dded5-f5d9-4c1c-a4d0-516d66e1572d)
+- **Split/Settle Page**
+  ![Split/Settle Page](Screenshots/Split:Settle_1.png)
+  ![Split/Settle Page](Screenshots/Split:Settle_2.png)
 
 
+- **Friends Page**
+  ![Friends Page](Screenshots/Friends.png)
 
+- **Groups Page**
+  ![Groups Page](Screenshots/Groups.png)
